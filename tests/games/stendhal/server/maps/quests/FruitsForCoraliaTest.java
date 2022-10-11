@@ -137,7 +137,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon.", getReply(npc));
+		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Do you have #everything?", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -173,7 +173,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		assertEquals("I'd still like 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any?", getReply(npc));
+		assertEquals("I'd still like 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any, or #everything?", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -217,7 +217,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		assertEquals("I'd still like 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any?", getReply(npc));
+		assertEquals("I'd still like 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any, or #everything?", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -233,11 +233,11 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
-		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
-		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
-		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
-		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
+//		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
+//		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
+//		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
+//		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
+//		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
 
 		final int xp = player.getXP();
 		final double karma = player.getKarma();
@@ -332,5 +332,26 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		assertEquals("Bye.", getReply(npc));
 		*/
+		
+		player.setQuest(questSlot, null);
+		PlayerTestHelper.equipWithStackableItem(player, "apple", 4);
+		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
+		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
+		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
+		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
+		
+		en.step(player, "hi");
+		assertEquals("Oh hello there, did I just catch you admiring my beautiful #hat?", getReply(npc));
+		en.step(player, "hat");
+		assertEquals("It's a shame for you to see it all withered like this, it really needs some fresh #fruits...", getReply(npc));
+		en.step(player, "fruit");
+		assertEquals("Would you be kind enough to find me some fresh fruits for my hat? I'd be ever so grateful!", getReply(npc));
+		en.step(player, "yes");
+		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Do you have #everything?", getReply(npc));
+		en.step(player, "everything");
+		assertEquals("My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.", getReply(npc));
+		
 	}
 }
