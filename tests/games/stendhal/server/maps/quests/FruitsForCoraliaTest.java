@@ -137,7 +137,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Do you have #everything?", getReply(npc));
+		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon.", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -349,9 +349,16 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		en.step(player, "fruit");
 		assertEquals("Would you be kind enough to find me some fresh fruits for my hat? I'd be ever so grateful!", getReply(npc));
 		en.step(player, "yes");
-		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Do you have #everything?", getReply(npc));
+		assertEquals("That's wonderful! I'd like these fresh fruits: 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon.", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Bye.", getReply(npc));
+		
+		en.step(player, "hi");
+		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, I'll happily take them!", getReply(npc));
+		en.step(player, "quest");
+		assertEquals("I'd still like 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any, or #everything?", getReply(npc));
 		en.step(player, "everything");
 		assertEquals("My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.", getReply(npc));
-		
+
 	}
 }
