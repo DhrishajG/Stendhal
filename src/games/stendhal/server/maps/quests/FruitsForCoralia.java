@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import games.stendhal.common.grammar.Grammar;
+import games.stendhal.common.parser.Sentence;
 import games.stendhal.server.entity.npc.ChatAction;
 import games.stendhal.server.entity.npc.ConversationPhrases;
 import games.stendhal.server.entity.npc.ConversationStates;
+import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.npc.SpeakerNPC;
 import games.stendhal.server.entity.npc.action.CollectRequestedItemsAction;
 import games.stendhal.server.entity.npc.action.EquipRandomAmountOfItemAction;
@@ -297,7 +299,7 @@ public class FruitsForCoralia extends AbstractQuest {
     		new QuestActiveCondition(QUEST_SLOT),
     		ConversationStates.QUESTION_2,
     		null,
-    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any?"));
+    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any, or #everything"));
 
     	// player says he didn't bring any items
 		npc.add(ConversationStates.QUESTION_2,
@@ -341,10 +343,27 @@ public class FruitsForCoralia extends AbstractQuest {
     				completeAction,
     				ConversationStates.ATTENDING));
     	}
+    	
+    	//trigger for giving all items
+    	npc.add(ConversationStates.QUESTION_2, "everything",
+				null,
+				ConversationStates.QUESTION_2,
+				null,
+				new ChatAction() {
+			    @Override
+				public void fire(final Player player, final Sentence sentence,
+					   final EventRaiser npc) {
+			    	checkForAll(player, npc);
+			}
+    	});	    
     }
 
-	@Override
+    @Override
 	public String getNPCName() {
 		return "Coralia";
 	}
+    
+    private void checkForAll(final Player player, final EventRaiser npc) {
+    	npc.say("trigger working");
+    }
 }
