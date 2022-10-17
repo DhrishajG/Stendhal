@@ -122,7 +122,7 @@ public class FishSoup extends AbstractQuest {
 	}
 
 	private void step_1() {
-		final SpeakerNPC npc = npcs.get("Florence Boullabaisse");
+		final SpeakerNPC npc = npcs.get("Florence Bouillabaisse");
 
 		// player says hi before starting the quest
 		npc.add(
@@ -240,7 +240,7 @@ public class FishSoup extends AbstractQuest {
 	}
 
 	private void step_3() {
-		final SpeakerNPC npc = npcs.get("Florence Boullabaisse");
+		final SpeakerNPC npc = npcs.get("Florence Bouillabaisse");
 
 		// player returns while quest is still active
 		npc.add(
