@@ -38,7 +38,7 @@ public class FishSoupMakerNPC implements ZoneConfigurator {
 	}
 
 	private void buildNPC(final StendhalRPZone zone) {
-		final SpeakerNPC npc = new SpeakerNPC("Florence Boullabaisse") {
+		final SpeakerNPC npc = new SpeakerNPC("Florence Bouillabaisse") {
 
 			@Override
 			protected void createPath() {
