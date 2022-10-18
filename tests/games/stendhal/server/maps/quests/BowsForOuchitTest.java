@@ -110,7 +110,7 @@ public class BowsForOuchitTest {
 		// check quest slot
 		assertEquals(player.getQuest(QUEST_SLOT),"hair");
 
-		en.step(player, "horse hairs");
+		en.step(player, "horse hair");
 		assertEquals("Horse hairs can be used as a bowstring. Please fetch me some from #Karl.", getReply(npc));
 		en.step(player, "Karl");
 		assertEquals("Karl is a farmer, east of Semos. He has many pets on his farm.", getReply(npc));
