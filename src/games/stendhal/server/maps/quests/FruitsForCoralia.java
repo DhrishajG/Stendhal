@@ -1,7 +1,9 @@
 package games.stendhal.server.maps.quests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 import games.stendhal.common.grammar.Grammar;
@@ -364,6 +366,28 @@ public class FruitsForCoralia extends AbstractQuest {
 	}
     
     private void checkForAll(final Player player, final EventRaiser npc) {
+    	String doneText = player.getQuest(QUEST_SLOT);
+    	if (doneText == null) {
+			doneText = "";
+		}
+    	
+    	List<String> done = Arrays.asList(doneText.split(";"));
     	npc.say("trigger working");
+    }
+    
+    private List<String> neededItems(){
+    	final List<String> neededNum = Arrays.asList(NEEDED_ITEMS.split(";"));
+    	final List<String> result = new LinkedList<String>();
+    	int num;
+    	
+    	for (String numString : neededNum) {
+    		num = Integer.parseInt(numString.split("=")[1]);
+    		for (int i = 0; i < num; i++) {
+    			result.add(numString.split("=")[0]);
+    		}
+    	}
+    	
+    	return result;
+    	
     }
 }
