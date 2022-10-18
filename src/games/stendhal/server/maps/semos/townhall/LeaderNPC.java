@@ -75,10 +75,12 @@ public class LeaderNPC implements ZoneConfigurator {
 					        			// this is a special case, we deal with explicitly
 					        			comment = "I see you use twin swords. They have a superb damage capability but as you cannot wear a shield with them, you will find it harder to defend yourself if attacked.";
 					        		} else if (damage >= 5) {
+					        			
 					        			comment = "That " + weapon.getName() + " is a powerful weapon, it has a good damage to rate ratio.";
-					        			if (weapon.getAttackRate() < 3) {
+					        			if (weapon.getAttack() < 3) {
+					        				
 					        				comment += " Despite the fast rate being useful, the low attack will not help you against strong creatures. Something heavier would be better then.";
-					        			} else if (weapon.getAttackRate() > 6) {
+					        			} else if (weapon.getAttack() > 6) {
 					        				comment +=  " It should be useful against strong creatures. Remember though that something weaker but faster may suffice against lower level creatures.";
 					        			}
 					        		} else {
