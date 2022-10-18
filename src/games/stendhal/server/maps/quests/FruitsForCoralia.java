@@ -366,12 +366,6 @@ public class FruitsForCoralia extends AbstractQuest {
 	}
     
     private void checkForAll(final Player player, final EventRaiser npc) {
-    	String doneText = player.getQuest(QUEST_SLOT);
-    	if (doneText == null) {
-			doneText = "";
-		}
-    	
-    	List<String> done = Arrays.asList(doneText.split(";"));
     	npc.say("trigger working");
     }
     
@@ -389,5 +383,24 @@ public class FruitsForCoralia extends AbstractQuest {
     	
     	return result;
     	
+    }
+    
+    private List<String> missingItems(final Player player){
+    	List<String> result = new LinkedList<String>();
+    	String doneText = player.getQuest(QUEST_SLOT);
+    	if (doneText == null) {
+			doneText = "";
+		}
+    	
+    	List<String> done = Arrays.asList(doneText.split(";"));
+    	List<String> needed = neededItems();
+    	
+    	for (String item : needed) {
+    		if (!done.contains(item)) {
+    			result.add(item);
+    		}
+    	}
+    	
+    	return done;
     }
 }
