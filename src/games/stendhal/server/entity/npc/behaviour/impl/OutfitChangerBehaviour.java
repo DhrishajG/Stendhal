@@ -68,6 +68,7 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 				new Outfit("mask=997,hair=-1,hat=-1"),
 				new Outfit("mask=998,hair=-1,hat=-1"),
 				new Outfit("mask=999,hair=-1,hat=-1")));
+		
 
 		// wedding dress for brides
 		// it seems this must be an array as list even though it's only one item
@@ -297,5 +298,13 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	 */
 	public int getEndurance() {
 		return endurance;
+	}
+	
+	/**
+	 * Array of outfits
+	 * @return outfitTypes value 
+	 */
+	public List<Outfit> getoutfitTypes(String key) {
+		return outfitTypes.get(key);
 	}
 }
