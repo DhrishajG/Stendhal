@@ -71,7 +71,7 @@ public class LeaderNPC implements ZoneConfigurator {
 					        		String comment;
 					        		// this is, loosely, the formula used for damage of a weapon (not taking level into account here)
 					        		final float damage = (weapon.getAttack() + 1) / weapon.getAttackRate();
-					        		if (weapon.getName().equalsIgnoreCase("rod of the GM")) {
+					        		if (damage >=50) {
 					        			comment = "Your " + weapon.getName()+ " is the strongest weapon I have come across. I have never seen a weapon with a higher damage output. It should be ideal for creatures stronger than you.";
 					        		} else if (weapon.getName().endsWith(" hand sword")) {
 					        			// this is a special case, we deal with explicitly
