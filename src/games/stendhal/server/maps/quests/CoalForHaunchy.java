@@ -33,6 +33,7 @@ import games.stendhal.server.entity.npc.action.SayTimeRemainingAction;
 import games.stendhal.server.entity.npc.action.SetQuestAndModifyKarmaAction;
 import games.stendhal.server.entity.npc.condition.AndCondition;
 import games.stendhal.server.entity.npc.condition.NotCondition;
+import games.stendhal.server.entity.npc.condition.OrCondition;
 //import games.stendhal.server.entity.npc.condition.OrCondition;
 import games.stendhal.server.entity.npc.condition.PlayerHasItemWithHimCondition;
 import games.stendhal.server.entity.npc.condition.QuestCompletedCondition;
@@ -67,7 +68,28 @@ import games.stendhal.server.maps.Region;
  * <li>Some grilled steaks, random between 1 and 4.</li>
  * </ul>
  *
- * REPETITIONS:
+ * REPETITIONS:npc.add(
+//				ConversationStates.ATTENDING, ConversationPhrases.QUEST_MESSAGES,
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new OrCondition(new PlayerHasItemWithHimCondition("coal",25),new PlayerHasItemWithHimCondition("charcoal",25))),
+//				ConversationStates.ATTENDING,
+//				null,
+//				new MultipleActions(
+//						new DropItemAction("coal",25),
+//						new IncreaseXPAction(200),
+//						new IncreaseKarmaAction(20),
+//						new ChatAction() {
+//							@Override
+//							public void fire(final Player player,
+//									final Sentence sentence,
+//									final EventRaiser npc) {
+//								int grilledsteakAmount = Rand.rand(4) + 1;
+//								new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
+//								npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
+//										Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
+//								new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
+//										+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
+//							}
+//						}));
  * <ul>
  * <li>You can repeat it each 2 days.</li>
  * </ul>
@@ -99,6 +121,14 @@ public class CoalForHaunchy extends AbstractQuest {
 				ConversationStates.QUEST_OFFERED,
 				"Coal isn't easy to find. You normally can find it somewhere in the ground but perhaps you are lucky and find some in the old Semos Mine tunnels...",
 				null);
+		
+//		npc.add(
+//				ConversationStates.QUEST_OFFERED,
+//				Arrays.asList("charcoal"),
+//				null,
+//				ConversationStates.QUEST_OFFERED_CHARCOAL,
+//				"Charcoal isn't easy to find. You normally can find it somewhere in the ground but perhaps you are lucky and find some in the old Semos Mine tunnels...",
+//				null);
 
         // player has completed the quest (doesn't happen here)
 		npc.add(ConversationStates.ATTENDING,
@@ -107,6 +137,13 @@ public class CoalForHaunchy extends AbstractQuest {
 				ConversationStates.ATTENDING,
 				"I can go on with grilling my tasty steaks now! Thank you!",
 				null);
+//		
+//		npc.add(ConversationStates.ATTENDING_CHARCOAL,
+//				ConversationPhrases.QUEST_MESSAGES,
+//				new QuestCompletedCondition(QUEST_SLOT),
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				"I can go on with grilling my tasty steaks now! Thank you!",
+//				null);
 
 		// player asks about quest which he has done already and he is allowed to repeat it
 		npc.add(ConversationStates.ATTENDING,
@@ -115,6 +152,13 @@ public class CoalForHaunchy extends AbstractQuest {
 				ConversationStates.QUEST_OFFERED,
 				"The last coal you brought me is mostly gone again. Will you bring me some more?",
 				null);
+		
+//		npc.add(ConversationStates.ATTENDING_CHARCOAL,
+//				ConversationPhrases.QUEST_MESSAGES,
+//				new AndCondition(new TimePassedCondition(QUEST_SLOT, 1, REQUIRED_MINUTES), new QuestStateStartsWithCondition(QUEST_SLOT, "waiting;")),
+//				ConversationStates.QUEST_OFFERED_CHARCOAL,
+//				"The last charcoal you brought me is mostly gone again. Will you bring me some more?",
+//				null);
 
 		// player asks about quest which he has done already but it is not time to repeat it
 		npc.add(ConversationStates.ATTENDING,
@@ -124,6 +168,13 @@ public class CoalForHaunchy extends AbstractQuest {
 				null,
 				new SayTimeRemainingAction(QUEST_SLOT, 1, REQUIRED_MINUTES, "The coal amount behind my counter is still high enough. I will not need more for"));
 
+//		npc.add(ConversationStates.ATTENDING_CHARCOAL,
+//				ConversationPhrases.QUEST_MESSAGES,
+//				new AndCondition(new NotCondition(new TimePassedCondition(QUEST_SLOT, 1, REQUIRED_MINUTES)), new QuestStateStartsWithCondition(QUEST_SLOT, "waiting;")),
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				null,
+//				new SayTimeRemainingAction(QUEST_SLOT, 1, REQUIRED_MINUTES, "The charcoal amount behind my counter is still high enough. I will not need more for"));
+
 		// Player agrees to get the coal, increase 5 karma
 		npc.add(ConversationStates.QUEST_OFFERED,
 				ConversationPhrases.YES_MESSAGES, null,
@@ -131,11 +182,23 @@ public class CoalForHaunchy extends AbstractQuest {
 				"Thank you! If you have found 25 pieces, say #coal to me so I know you have it. I'll be sure to give you a nice and tasty reward.",
 				new SetQuestAndModifyKarmaAction(QUEST_SLOT, "start", 5));
 
+//		npc.add(ConversationStates.QUEST_OFFERED_CHARCOAL,
+//				ConversationPhrases.YES_MESSAGES, null,
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				"Thank you! If you have found 25 pieces, say #charcoal to me so I know you have it. I'll be sure to give you a nice and tasty reward.",
+//				new SetQuestAndModifyKarmaAction(QUEST_SLOT, "start", 5));
+
+		
 		// Player says no, they've lost karma.
 		npc.add(ConversationStates.QUEST_OFFERED,
 				ConversationPhrases.NO_MESSAGES, null, ConversationStates.IDLE,
 				"Oh, never mind. I thought you love BBQs like I do. Bye then.",
 				new SetQuestAndModifyKarmaAction(QUEST_SLOT, "rejected", -10.0));
+		
+//		npc.add(ConversationStates.QUEST_OFFERED_CHARCOAL,
+//				ConversationPhrases.NO_MESSAGES, null, ConversationStates.IDLE,
+//				"Oh, never mind. I thought you love BBQs like I do. Bye then.",
+//				new SetQuestAndModifyKarmaAction(QUEST_SLOT, "rejected", -10.0));
 	}
 
 	/*
@@ -157,33 +220,11 @@ public class CoalForHaunchy extends AbstractQuest {
 		// player asks about quest or says coal when they are supposed to bring some coal and they have it
 		npc.add(
 				ConversationStates.ATTENDING, triggers,
-				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new PlayerHasItemWithHimCondition("coal",25)),
+				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new OrCondition(new PlayerHasItemWithHimCondition("coal",25),new PlayerHasItemWithHimCondition("charcoal",25))),
 				ConversationStates.ATTENDING,
 				null,
 				new MultipleActions(
 						new DropItemAction("coal",25),
-						new IncreaseXPAction(200),
-						new IncreaseKarmaAction(20),
-						new ChatAction() {
-							@Override
-							public void fire(final Player player,
-									final Sentence sentence,
-									final EventRaiser npc) {
-								int grilledsteakAmount = Rand.rand(4) + 1;
-								new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
-								npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
-										Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
-								new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
-										+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
-							}
-						}));
-		
-		npc.add(
-				ConversationStates.ATTENDING, triggers2,
-				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new PlayerHasItemWithHimCondition("charcoal",25)),
-				ConversationStates.ATTENDING,
-				null,
-				new MultipleActions(
 						new DropItemAction("charcoal",25),
 						new IncreaseXPAction(200),
 						new IncreaseKarmaAction(20),
@@ -201,22 +242,120 @@ public class CoalForHaunchy extends AbstractQuest {
 							}
 						}));
 		
-//		triggers.add("charcoal");
+//		npc.add(
+//				ConversationStates.ATTENDING, ConversationPhrases.QUEST_MESSAGES,
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new OrCondition(new PlayerHasItemWithHimCondition("coal",25),new PlayerHasItemWithHimCondition("charcoal",25))),
+//				ConversationStates.ATTENDING,
+//				null,
+//				new MultipleActions(
+//						new DropItemAction("coal",25),
+//						new IncreaseXPAction(200),
+//						new IncreaseKarmaAction(20),
+//						new ChatAction() {
+//							@Override
+//							public void fire(final Player player,npc.add(
+//		ConversationStates.ATTENDING, ConversationPhrases.QUEST_MESSAGES,
+//		new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new OrCondition(new PlayerHasItemWithHimCondition("coal",25),new PlayerHasItemWithHimCondition("charcoal",25))),
+//		ConversationStates.ATTENDING,
+//		null,
+//		new MultipleActions(
+//				new DropItemAction("coal",25),
+//				new IncreaseXPAction(200),
+//				new IncreaseKarmaAction(20),
+//				new ChatAction() {
+//					@Override
+//					public void fire(final Player player,
+//							final Sentence sentence,
+//							final EventRaiser npc) {
+//						int grilledsteakAmount = Rand.rand(4) + 1;
+//						new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
+//						npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
+//								Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
+//						new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
+//								+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
+//					}
+//				}));
+//									final Sentence sentence,
+//									final EventRaiser npc) {
+//								int grilledsteakAmount = Rand.rand(4) + 1;
+//								new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
+//								npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
+//										Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
+//								new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
+//										+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
+//							}
+//						}));
+		
+//		npc.add(
+//				ConversationStates.ATTENDING, triggers2,
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new AndCondition(new NotCondition(new PlayerHasItemWithHimCondition("coal",25)), new PlayerHasItemWithHimCondition("charcoal",25))),
+//				ConversationStates.ATTENDING,
+//				null,
+//				new MultipleActions(
+//						new DropItemAction("charcoal",25),
+//						new IncreaseXPAction(200),
+//						new IncreaseKarmaAction(20),
+//						new ChatAction() {
+//							@Override
+//							public void fire(final Player player,
+//									final Sentence sentence,
+//									final EventRaiser npc) {
+//								int grilledsteakAmount = Rand.rand(4) + 1;
+//								new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
+//								npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
+//										Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
+//								new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
+//										+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
+//							}
+//						}));
+//		
+//		npc.add(
+//				ConversationStates.ATTENDING, "charcoal",
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new PlayerHasItemWithHimCondition("charcoal",25)),
+//				ConversationStates.ATTENDING,
+//				null,
+//				new MultipleActions(
+//						new DropItemAction("charcoal",25),
+//						new IncreaseXPAction(200),
+//						new IncreaseKarmaAction(20),
+//						new ChatAction() {
+//							@Override
+//							public void fire(final Player player,
+//									final Sentence sentence,
+//									final EventRaiser npc) {
+//								int grilledsteakAmount = Rand.rand(4) + 1;
+//								new EquipItemAction("grilled steak", grilledsteakAmount, true).fire(player, sentence, npc);
+//								npc.say("Thank you!! Take " + Grammar.thisthese(grilledsteakAmount) + " " +
+//										Grammar.quantityNumberStrNoun(grilledsteakAmount, "grilled steak") + " from my grill!");
+//								new SetQuestAndModifyKarmaAction(getSlotName(), "waiting;"
+//										+ System.currentTimeMillis(), 10.0).fire(player, sentence, npc);
+//							}
+//						}));
+//		
+
 
 		// player asks about quest or says coal when they are supposed to bring some coal and they don't have it
+		triggers.add("charcoal");
 		npc.add(
 				ConversationStates.ATTENDING, triggers,
-				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new NotCondition(new PlayerHasItemWithHimCondition("coal",25))),
+				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new NotCondition(new AndCondition(new PlayerHasItemWithHimCondition("coal",25), new PlayerHasItemWithHimCondition("charcoal",25)))),
 				ConversationStates.ATTENDING,
 				"You don't have the coal amount which I need yet. Go and pick some more pieces up, please.",
 				null);
 		
-		npc.add(
-				ConversationStates.ATTENDING, triggers2,
-				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new NotCondition(new PlayerHasItemWithHimCondition("charcoal",25))),
-				ConversationStates.ATTENDING,
-				"You don't have the coal amount which I need yet. Go and pick some more pieces up, please.",
-				null);
+//		npc.add(
+//				ConversationStates.ATTENDING, "charcoal",
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new NotCondition(new PlayerHasItemWithHimCondition("charcoal",25))),
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				"You don't have the charcoal amount which I need yet. Go and pick some more pieces up, please.",
+//				null);
+//		
+//		npc.add(
+//				ConversationStates.ATTENDING_CHARCOAL, triggers2,
+//				new AndCondition(new QuestInStateCondition(QUEST_SLOT, "start"), new NotCondition(new PlayerHasItemWithHimCondition("charcoal",25))),
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				"You don't have the charcoal amount which I need yet. Go and pick some more pieces up, please.",
+//				null);
 
 
 		npc.add(
@@ -226,6 +365,14 @@ public class CoalForHaunchy extends AbstractQuest {
 				new QuestNotInStateCondition(QUEST_SLOT,"start"),
 				ConversationStates.ATTENDING,
 				"Sometime you could do me a #favour ...", null);
+		
+//		npc.add(
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				Arrays.asList("charcoal"),
+////				Arrays.asList("coal","stone coal"),
+//				new QuestNotInStateCondition(QUEST_SLOT,"start"),
+//				ConversationStates.ATTENDING_CHARCOAL,
+//				"Sometime you could do me a #favour ...", null);
 	}
 	
 	/*
