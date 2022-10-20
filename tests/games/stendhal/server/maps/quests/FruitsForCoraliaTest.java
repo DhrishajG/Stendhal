@@ -233,11 +233,11 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-//		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
-//		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
-//		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
-//		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
-//		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
+		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
+		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
+		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
 
 		final int xp = player.getXP();
 		final double karma = player.getKarma();
@@ -333,7 +333,9 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("Bye.", getReply(npc));
 		*/
 		
+		en.step(player, "bye");
 		player.setQuest(questSlot, null);
+		
 		PlayerTestHelper.equipWithStackableItem(player, "apple", 4);
 		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
 		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
@@ -355,8 +357,8 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		
 		en.step(player, "hi");
 		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, I'll happily take them!", getReply(npc));
-		en.step(player, "quest");
-		assertEquals("I'd still like 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any, or #everything?", getReply(npc));
+		en.step(player, "hat");
+		assertEquals("I'd still like 4 #apples, 5 #bananas, 9 #cherries, 2 #'bunches of grapes', 4 #pears, 2 #pomegranates, and a #watermelon. Have you brought any, or #everything?", getReply(npc));
 		en.step(player, "everything");
 		assertEquals("My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.", getReply(npc));
 
