@@ -406,7 +406,7 @@ public class FruitsForCoralia extends AbstractQuest {
     private List<String> missingItems(final Player player){ //returns list of missing items
     	List<String> result = new LinkedList<String>();
     	
-    	List<String> done = doneText(player);
+    	List<String> done = questText(player);
     	
     	List<String> needed = neededItems();
     	
@@ -420,7 +420,7 @@ public class FruitsForCoralia extends AbstractQuest {
     }
     
     //returns items still required for quest
-    private List<String> doneText(final Player player){
+    private List<String> questText(final Player player){
     	List<String> result = new LinkedList<String>();
     	String doneText = player.getQuest(QUEST_SLOT);
     	if (doneText == null) {
