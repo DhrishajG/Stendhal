@@ -13,6 +13,7 @@
 package games.stendhal.server.entity.npc.behaviour.adder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import games.stendhal.common.grammar.Grammar;
+import games.stendhal.common.grammar.ItemParser;
 import games.stendhal.common.grammar.ItemParserResult;
+import games.stendhal.common.parser.Expression;
 import games.stendhal.common.parser.Sentence;
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.entity.Outfit;
@@ -85,8 +88,13 @@ public class OutfitChangerAdder {
 
 		servicersRegister.add(npc.getName(), outfitBehaviour);
 		
-		final List<String> trigger_key = new ArrayList<String>();
+		final List<String> trigger_key_mask = Arrays.asList("one","two","three","four","five","six");
+		final List<String> triggers = Arrays.asList("oyee","oyeeee");
 		final List<Outfit> trigger_value = new ArrayList<Outfit>();
+		Object outfits_array;
+		for (Outfit outfit : outfits_array) {
+			trigger_value.add(outfit);
+		}
 
 		final Engine engine = npc.getEngine();
 		if (offer) {
@@ -103,30 +111,6 @@ public class OutfitChangerAdder {
 							+ ".", null);			
 			}
 		
-//		engine.add(ConversationStates.ATTENDING, action, null, false,
-//				ConversationStates.ATTENDING, null,
-//				new BehaviourAction(outfitBehaviour, action, "give") {
-//					@Override
-//					public void fireRequestOK(final ItemParserResult res, Player player, Sentence sentence, EventRaiser raiser) {
-//						List<Outfit> outfits_array = outfitBehaviour.getOutfitTypes(res.getChosenItemName());
-//						
-//						if (res.getChosenItemName().equals("mask")) {
-//							trigger_key.add("num1");
-//							trigger_key.add("num2");
-//							trigger_key.add("num3");
-//							trigger_key.add("num4");
-//							trigger_key.add("num5");
-//							trigger_key.add("num6");
-//						}
-//						
-//						for (Outfit outfit : outfits_array) {
-//							trigger_value.add(outfit);
-//						}
-//						npc.say("you can choose whatever number"+trigger_key.size()+currentBehavRes.getChosenItemName()+res.getChosenItemName());
-//						currentBehavRes = res;
-//						raiser.setCurrentState(ConversationStates.OFFER);
-//					}
-//				});
 
 			engine.add(ConversationStates.ATTENDING, action, null, false,
 					ConversationStates.ATTENDING, null,
@@ -148,6 +132,7 @@ public class OutfitChangerAdder {
 						}
 					});
 
+			
 		engine.add(ConversationStates.BUY_PRICE_OFFERED,
 				ConversationPhrases.YES_MESSAGES, null,
 				false, ConversationStates.ATTENDING,
@@ -158,30 +143,24 @@ public class OutfitChangerAdder {
 						final String itemName = currentBehavRes.getChosenItemName();
 						List<Outfit> outfits_array = outfitBehaviour.getOutfitTypes(itemName);
 						
-						if (itemName.equals("mask")) {
-							trigger_key.add("maskone");
-							trigger_key.add("num2");
-							trigger_key.add("num3");
-							trigger_key.add("num4");
-							trigger_key.add("num5");
-							trigger_key.add("num6");
-						}
-	
-						for (Outfit outfit : outfits_array) {
-							trigger_value.add(outfit);
-						}
-						npc.say("you can choose whatever number"+trigger_key.get(0));
+						npc.say("you can choose whatever number"+trigger_key.get(0)+trigger_key.get(1));
 					}
 				});	
 			
 		engine.add(ConversationStates.ATTENDING,
-				"maskone", null,
+				trigger_key_mask, null,
 				false, ConversationStates.ATTENDING,
 				null, new ChatAction() {
 					@Override
 					public void fire(final Player player, final Sentence sentence,
 							final EventRaiser npc) {
+					
+						List<Expression> expressions = sentence.getExpressions();
+						Expression expr = expressions.get(0);
+						String chosenName = expr.getNormalized();
+						
 						final String itemName = currentBehavRes.getChosenItemName();
+						npc.say(chosenName+" "+itemName);
 						logger.debug("Selling a " + itemName + " to player " + player.getName());
 
 						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
