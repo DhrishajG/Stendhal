@@ -68,7 +68,7 @@ public class ZekielsPracticalTestTest {
 	public void setUp() {
 		zone = new StendhalRPZone("int_semos_wizards_tower_basement");
 		MockStendlRPWorld.get().addRPZone(zone);
-		//new MaidNPC().configureZone(zone, null); // ADD Zekiel????
+		new SpeakerNPC("Zekiel the guardian"); // ADD Zekiel????
 
 
 		AbstractQuest quest = new ZekielsPracticalTestQuest();
