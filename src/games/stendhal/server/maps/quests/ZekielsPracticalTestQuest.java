@@ -272,7 +272,7 @@ public class ZekielsPracticalTestQuest extends AbstractQuest {
 			new MultipleActions(
 					new SetQuestAction(QUEST_SLOT, "first_step"),
 					new TeleportAction("int_semos_wizards_tower_1", 15, 16, Direction.DOWN),
-					new CandleCheckAction(new StendhalRPZone("int_semos_wizards_tower_1"))));
+					new CandleCheckAction(new StendhalRPZone("int_semos_wizards_tower_1"))) );
 	}
 
 	private void finishQuestStep() {

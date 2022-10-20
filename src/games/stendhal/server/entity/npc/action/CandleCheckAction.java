@@ -18,6 +18,7 @@ public class CandleCheckAction implements ChatAction{
 			}
 		}
 
+		
 		@Override
 		public void fire(Player player, Sentence sentence, EventRaiser npc) {
 			// TODO Auto-generated method stub
