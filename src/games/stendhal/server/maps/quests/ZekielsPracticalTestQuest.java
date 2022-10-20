@@ -17,9 +17,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import games.stendhal.common.Direction;
+import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.entity.npc.ConversationPhrases;
 import games.stendhal.server.entity.npc.ConversationStates;
 import games.stendhal.server.entity.npc.SpeakerNPC;
+import games.stendhal.server.entity.npc.action.CandleCheckAction;
 import games.stendhal.server.entity.npc.action.DropItemAction;
 import games.stendhal.server.entity.npc.action.ExamineChatAction;
 import games.stendhal.server.entity.npc.action.IncreaseKarmaAction;
@@ -269,7 +271,8 @@ public class ZekielsPracticalTestQuest extends AbstractQuest {
 			null,
 			new MultipleActions(
 					new SetQuestAction(QUEST_SLOT, "first_step"),
-					new TeleportAction("int_semos_wizards_tower_1", 15, 16, Direction.DOWN)));
+					new TeleportAction("int_semos_wizards_tower_1", 15, 16, Direction.DOWN),
+					new CandleCheckAction(new StendhalRPZone("int_semos_wizards_tower_1"))));
 	}
 
 	private void finishQuestStep() {
