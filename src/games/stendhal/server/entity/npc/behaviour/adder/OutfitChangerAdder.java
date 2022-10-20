@@ -12,12 +12,18 @@
  ***************************************************************************/
 package games.stendhal.server.entity.npc.behaviour.adder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import games.stendhal.common.grammar.Grammar;
 import games.stendhal.common.grammar.ItemParserResult;
 import games.stendhal.common.parser.Sentence;
 import games.stendhal.server.core.engine.SingletonRepository;
+import games.stendhal.server.entity.Outfit;
 import games.stendhal.server.entity.npc.ChatAction;
 import games.stendhal.server.entity.npc.ConversationPhrases;
 import games.stendhal.server.entity.npc.ConversationStates;
@@ -33,7 +39,7 @@ import games.stendhal.server.util.TimeUtil;
 public class OutfitChangerAdder {
 	private static Logger logger = Logger.getLogger(OutfitChangerAdder.class);
 
-    private final ServicersRegister servicersRegister = SingletonRepository.getServicersRegister();
+    private final ServicersRegister servicersRegister = SingletonRepository.getServicersRegister(); 
 
 	/**
 	 * Behaviour parse result in the current conversation.
@@ -78,6 +84,9 @@ public class OutfitChangerAdder {
 			final boolean offer, final boolean canReturn) {
 
 		servicersRegister.add(npc.getName(), outfitBehaviour);
+		
+		final List<String> trigger_key = new ArrayList<String>();
+		final List<Outfit> trigger_value = new ArrayList<Outfit>();
 
 		final Engine engine = npc.getEngine();
 		if (offer) {
@@ -91,31 +100,82 @@ public class OutfitChangerAdder {
 							+ action
 							+ " "
 							+ Grammar.enumerateCollection(outfitBehaviour.dealtItems())
-							+ ".", null);
-		}
+							+ ".", null);			
+			}
+		
+//		engine.add(ConversationStates.ATTENDING, action, null, false,
+//				ConversationStates.ATTENDING, null,
+//				new BehaviourAction(outfitBehaviour, action, "give") {
+//					@Override
+//					public void fireRequestOK(final ItemParserResult res, Player player, Sentence sentence, EventRaiser raiser) {
+//						List<Outfit> outfits_array = outfitBehaviour.getOutfitTypes(res.getChosenItemName());
+//						
+//						if (res.getChosenItemName().equals("mask")) {
+//							trigger_key.add("num1");
+//							trigger_key.add("num2");
+//							trigger_key.add("num3");
+//							trigger_key.add("num4");
+//							trigger_key.add("num5");
+//							trigger_key.add("num6");
+//						}
+//						
+//						for (Outfit outfit : outfits_array) {
+//							trigger_value.add(outfit);
+//						}
+//						npc.say("you can choose whatever number"+trigger_key.size()+currentBehavRes.getChosenItemName()+res.getChosenItemName());
+//						currentBehavRes = res;
+//						raiser.setCurrentState(ConversationStates.OFFER);
+//					}
+//				});
 
-		engine.add(ConversationStates.ATTENDING, action, null, false,
-				ConversationStates.ATTENDING, null,
-				new BehaviourAction(outfitBehaviour, action, "offer") {
-					@Override
-					public void fireRequestOK(final ItemParserResult res, Player player, Sentence sentence, EventRaiser raiser) {
-						// find out what the player wants to wear
-
-						// We ignore any amounts.
-						res.setAmount(1);
-
-						final int price = outfitBehaviour.getUnitPrice(res.getChosenItemName()) * res.getAmount();
-
-						raiser.say("To " + action + " a " + res.getChosenItemName() + " will cost " + price
-								+ ". Do you want to " + action + " it?");
-
-						currentBehavRes = res;
-						raiser.setCurrentState(ConversationStates.BUY_PRICE_OFFERED); // success
-					}
-				});
+			engine.add(ConversationStates.ATTENDING, action, null, false,
+					ConversationStates.ATTENDING, null,
+					new BehaviourAction(outfitBehaviour, action, "offer") {
+						@Override
+						public void fireRequestOK(final ItemParserResult res, Player player, Sentence sentence, EventRaiser raiser) {
+							// find out what the player wants to wear
+							
+							// We ignore any amounts.
+							res.setAmount(1);
+	
+							final int price = outfitBehaviour.getUnitPrice(res.getChosenItemName()) * res.getAmount();
+	
+							raiser.say("To " + action + " a " + res.getChosenItemName() + " will cost " + price
+									+ ". Do you want to " + action + " it?");
+	
+							currentBehavRes = res;
+							raiser.setCurrentState(ConversationStates.BUY_PRICE_OFFERED); // success
+						}
+					});
 
 		engine.add(ConversationStates.BUY_PRICE_OFFERED,
 				ConversationPhrases.YES_MESSAGES, null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						List<Outfit> outfits_array = outfitBehaviour.getOutfitTypes(itemName);
+						
+						if (itemName.equals("mask")) {
+							trigger_key.add("maskone");
+							trigger_key.add("num2");
+							trigger_key.add("num3");
+							trigger_key.add("num4");
+							trigger_key.add("num5");
+							trigger_key.add("num6");
+						}
+	
+						for (Outfit outfit : outfits_array) {
+							trigger_value.add(outfit);
+						}
+						npc.say("you can choose whatever number"+trigger_key.get(0));
+					}
+				});	
+			
+		engine.add(ConversationStates.ATTENDING,
+				"maskone", null,
 				false, ConversationStates.ATTENDING,
 				null, new ChatAction() {
 					@Override

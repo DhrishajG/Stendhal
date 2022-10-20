@@ -304,7 +304,7 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	 * Array of outfits
 	 * @return outfitTypes value 
 	 */
-	public List<Outfit> getoutfitTypes(String key) {
+	public List<Outfit> getOutfitTypes(String key) {
 		return outfitTypes.get(key);
 	}
 }
