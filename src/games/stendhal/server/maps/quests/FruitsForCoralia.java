@@ -366,6 +366,7 @@ public class FruitsForCoralia extends AbstractQuest {
 		return "Coralia";
 	}
     
+    //Checks user inventory for all fruits, returning appropriate chat action
     private ChatAction checkForAll(final Player player, ChatAction completeAction) {
     	List<String> missing = missingItems(player);
     	ItemCollection needed = new ItemCollection( ) {};
@@ -389,7 +390,8 @@ public class FruitsForCoralia extends AbstractQuest {
     	return completeAction;
     }
     
-    private List<String> neededItems(){ //formats needed items as list with duplicates
+    //generates list of needed items and amounts
+    private List<String> neededItems(){ 
     	final List<String> neededNum = Arrays.asList(NEEDED_ITEMS.split(";"));
     	final List<String> result = new LinkedList<String>();
     	
@@ -401,7 +403,7 @@ public class FruitsForCoralia extends AbstractQuest {
     	
     }
     
-    private List<String> missingItems(final Player player){ //returns list of missing items (with duplicates for multiples)
+    private List<String> missingItems(final Player player){ //returns list of missing items
     	List<String> result = new LinkedList<String>();
     	
     	List<String> done = doneText(player);
@@ -417,6 +419,7 @@ public class FruitsForCoralia extends AbstractQuest {
     	return done;
     }
     
+    //returns items still required for quest
     private List<String> doneText(final Player player){
     	List<String> result = new LinkedList<String>();
     	String doneText = player.getQuest(QUEST_SLOT);
