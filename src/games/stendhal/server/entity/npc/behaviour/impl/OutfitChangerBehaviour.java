@@ -33,6 +33,8 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 
 	/** outfit expiry in minutes */
 	private int endurance;
+	
+	private int index_of_cloth;
 
 	private final String wearOffMessage;
 
@@ -238,7 +240,8 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 		}
 
 		final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
-		final Outfit newOutfit = Rand.rand(possibleNewOutfits);
+//		final Outfit newOutfit = Rand.rand(possibleNewOutfits);
+		final Outfit newOutfit = possibleNewOutfits.get(index_of_cloth);
 		player.setOutfit(newOutfit.putOver(player.getOutfit()), true);
 		player.registerOutfitExpireTime(endurance);
 	}
@@ -306,5 +309,9 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	 */
 	public List<Outfit> getOutfitTypes(String key) {
 		return outfitTypes.get(key);
+	}
+	
+	public void setIndexOfCloth(int index) {
+		index_of_cloth = index;
 	}
 }

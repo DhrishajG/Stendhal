@@ -85,7 +85,7 @@ public class OutfitChangerAdder {
 
 		servicersRegister.add(npc.getName(), outfitBehaviour);
 		
-		final List<String> trigger_key = new ArrayList<String>();
+		List<String> trigger_key = new ArrayList<String>();
 		final List<Outfit> trigger_value = new ArrayList<Outfit>();
 
 		final Engine engine = npc.getEngine();
@@ -159,23 +159,29 @@ public class OutfitChangerAdder {
 						List<Outfit> outfits_array = outfitBehaviour.getOutfitTypes(itemName);
 						
 						if (itemName.equals("mask")) {
-							trigger_key.add("maskone");
-							trigger_key.add("num2");
-							trigger_key.add("num3");
-							trigger_key.add("num4");
-							trigger_key.add("num5");
-							trigger_key.add("num6");
+							trigger_key.add("Brown Mouse");
+							trigger_key.add("Green Frog");
+							trigger_key.add("Black Bird");
+							trigger_key.add("Brown Monkey");
+							trigger_key.add("Brown & White Fox");
+							trigger_key.add("Brown Blue Eye");
 						}
-	
-						for (Outfit outfit : outfits_array) {
-							trigger_value.add(outfit);
+						else {
+							trigger_key.add("swimsuit");
 						}
 						npc.say("you can choose whatever number"+trigger_key.get(0));
+						
+						int i = 0;
+						for (Outfit outfit : outfits_array) {
+							npc.say(Integer.toString(i) + ". " + trigger_key.get(i));
+							i += 1;
+							trigger_value.add(outfit);
+						}
 					}
 				});	
 			
 		engine.add(ConversationStates.ATTENDING,
-				"maskone", null,
+				"Brown Mouse", null,
 				false, ConversationStates.ATTENDING,
 				null, new ChatAction() {
 					@Override
@@ -183,6 +189,147 @@ public class OutfitChangerAdder {
 							final EventRaiser npc) {
 						final String itemName = currentBehavRes.getChosenItemName();
 						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(0);
+
+						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
+							if (canReturn) {
+								npc.say(getReturnPhrase());
+								// -1 is also the public static final int NEVER_WEARS_OFF = -1;
+								// but it doesn't recognise it here ...
+							} else if (outfitBehaviour.getEndurance() != -1) {
+								// timeUntil takes a parameter in seconds so we multiply the endurance in minutes by 60
+								npc.say("Thanks! You can wear this for " +  TimeUtil.timeUntil(60 * outfitBehaviour.getEndurance()) + ".");
+							} else {
+								npc.say("Thanks!");
+							}
+						}
+
+						currentBehavRes = null;
+					}
+				});
+		
+		engine.add(ConversationStates.ATTENDING,
+				"Frog", null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(1);
+
+						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
+							if (canReturn) {
+								npc.say(getReturnPhrase());
+								// -1 is also the public static final int NEVER_WEARS_OFF = -1;
+								// but it doesn't recognise it here ...
+							} else if (outfitBehaviour.getEndurance() != -1) {
+								// timeUntil takes a parameter in seconds so we multiply the endurance in minutes by 60
+								npc.say("Thanks! You can wear this for " +  TimeUtil.timeUntil(60 * outfitBehaviour.getEndurance()) + ".");
+							} else {
+								npc.say("Thanks!");
+							}
+						}
+
+						currentBehavRes = null;
+					}
+				});
+		
+		engine.add(ConversationStates.ATTENDING,
+				"Black Bird", null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(2);
+
+						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
+							if (canReturn) {
+								npc.say(getReturnPhrase());
+								// -1 is also the public static final int NEVER_WEARS_OFF = -1;
+								// but it doesn't recognise it here ...
+							} else if (outfitBehaviour.getEndurance() != -1) {
+								// timeUntil takes a parameter in seconds so we multiply the endurance in minutes by 60
+								npc.say("Thanks! You can wear this for " +  TimeUtil.timeUntil(60 * outfitBehaviour.getEndurance()) + ".");
+							} else {
+								npc.say("Thanks!");
+							}
+						}
+
+						currentBehavRes = null;
+					}
+				});
+		
+		engine.add(ConversationStates.ATTENDING,
+				"Brown Monkey", null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(3);
+
+						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
+							if (canReturn) {
+								npc.say(getReturnPhrase());
+								// -1 is also the public static final int NEVER_WEARS_OFF = -1;
+								// but it doesn't recognise it here ...
+							} else if (outfitBehaviour.getEndurance() != -1) {
+								// timeUntil takes a parameter in seconds so we multiply the endurance in minutes by 60
+								npc.say("Thanks! You can wear this for " +  TimeUtil.timeUntil(60 * outfitBehaviour.getEndurance()) + ".");
+							} else {
+								npc.say("Thanks!");
+							}
+						}
+
+						currentBehavRes = null;
+					}
+				});
+		
+		engine.add(ConversationStates.ATTENDING,
+				"Brown & White Fox", null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(4);
+
+						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
+							if (canReturn) {
+								npc.say(getReturnPhrase());
+								// -1 is also the public static final int NEVER_WEARS_OFF = -1;
+								// but it doesn't recognise it here ...
+							} else if (outfitBehaviour.getEndurance() != -1) {
+								// timeUntil takes a parameter in seconds so we multiply the endurance in minutes by 60
+								npc.say("Thanks! You can wear this for " +  TimeUtil.timeUntil(60 * outfitBehaviour.getEndurance()) + ".");
+							} else {
+								npc.say("Thanks!");
+							}
+						}
+
+						currentBehavRes = null;
+					}
+				});
+		
+		engine.add(ConversationStates.ATTENDING,
+				"Brown Blue Eye", null,
+				false, ConversationStates.ATTENDING,
+				null, new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence,
+							final EventRaiser npc) {
+						final String itemName = currentBehavRes.getChosenItemName();
+						logger.debug("Selling a " + itemName + " to player " + player.getName());
+						outfitBehaviour.setIndexOfCloth(5);
 
 						if (outfitBehaviour.transactAgreedDeal(currentBehavRes, npc, player)) {
 							if (canReturn) {
