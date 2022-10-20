@@ -301,7 +301,7 @@ public class FruitsForCoralia extends AbstractQuest {
     		new QuestActiveCondition(QUEST_SLOT),
     		ConversationStates.QUESTION_2,
     		null,
-    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any, or #everything"));
+    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any, or #everything?"));
 
     	// player says he didn't bring any items
 		npc.add(ConversationStates.QUESTION_2,
@@ -329,6 +329,7 @@ public class FruitsForCoralia extends AbstractQuest {
 			new EquipRandomAmountOfItemAction("minor potion", 2, 8),
 			new SetQuestToTimeStampAction(QUEST_SLOT, 1)
 		);
+    			
 
     	// add triggers for the item names
     	final ItemCollection items = new ItemCollection();
@@ -349,15 +350,15 @@ public class FruitsForCoralia extends AbstractQuest {
     	//trigger for giving all items
     	npc.add(ConversationStates.QUESTION_2, "everything",
 				null,
-				ConversationStates.QUESTION_2,
+				ConversationStates.QUESTION_1,
 				null,
-				new ChatAction() {
-			    @Override
-				public void fire(final Player player, final Sentence sentence,
-					   final EventRaiser npc) {
-			    	checkForAll(player, npc);
-			}
-    	});	    
+				new ChatAction () {
+    				@Override
+    				public void fire(final Player player, final Sentence sentence, final EventRaiser npc) {
+    					checkForAll(player, completeAction).fire(player, sentence, npc);
+    				}
+    			}
+    	);	    
     }
 
     @Override
@@ -365,34 +366,46 @@ public class FruitsForCoralia extends AbstractQuest {
 		return "Coralia";
 	}
     
-    private void checkForAll(final Player player, final EventRaiser npc) {
-    	npc.say("trigger working");
+    private ChatAction checkForAll(final Player player, ChatAction completeAction) {
+    	List<String> missing = missingItems(player);
+    	ItemCollection needed = new ItemCollection( ) {};
+		final String itemsText = player.getQuest(QUEST_SLOT);
+    	needed.addFromQuestStateString(itemsText);
+    	
+    	boolean all = true;
+    	
+    	for (final String item: missing) {
+    		System.out.println(item);
+    		int numNeeded = Integer.parseInt(item.split("=")[1]);
+    		if(!needed.remove(item.split("=")[0], numNeeded)){
+    			all = false;
+    		}
+    	}
+    	
+    	if (!all) {
+    		return new SayTextAction("You didn't have all the fruits I need!");
+    	}
+    	
+    	return completeAction;
     }
     
-    private List<String> neededItems(){
+    private List<String> neededItems(){ //formats needed items as list with duplicates
     	final List<String> neededNum = Arrays.asList(NEEDED_ITEMS.split(";"));
     	final List<String> result = new LinkedList<String>();
-    	int num;
     	
     	for (String numString : neededNum) {
-    		num = Integer.parseInt(numString.split("=")[1]);
-    		for (int i = 0; i < num; i++) {
-    			result.add(numString.split("=")[0]);
-    		}
+    		result.add(numString);
     	}
     	
     	return result;
     	
     }
     
-    private List<String> missingItems(final Player player){
+    private List<String> missingItems(final Player player){ //returns list of missing items (with duplicates for multiples)
     	List<String> result = new LinkedList<String>();
-    	String doneText = player.getQuest(QUEST_SLOT);
-    	if (doneText == null) {
-			doneText = "";
-		}
     	
-    	List<String> done = Arrays.asList(doneText.split(";"));
+    	List<String> done = doneText(player);
+    	
     	List<String> needed = neededItems();
     	
     	for (String item : needed) {
@@ -402,5 +415,20 @@ public class FruitsForCoralia extends AbstractQuest {
     	}
     	
     	return done;
+    }
+    
+    private List<String> doneText(final Player player){
+    	List<String> result = new LinkedList<String>();
+    	String doneText = player.getQuest(QUEST_SLOT);
+    	if (doneText == null) {
+			doneText = "";
+		}
+    	System.out.println(doneText);
+    	
+    	for (String numString : doneText.split(";")) {
+			result.add(numString);
+    	}
+    	
+    	return result;
     }
 }
