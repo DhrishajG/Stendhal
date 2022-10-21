@@ -11,9 +11,10 @@
  *                                                                         *
  ***************************************************************************/
 package games.stendhal.server.maps.quests;
-
 import static org.junit.Assert.assertEquals;
 import static utilities.SpeakerNPCTestHelper.getReply;
+
+import java.util.Arrays;
 
 //import java.util.Arrays;
 
@@ -22,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.common.Direction;
+import games.stendhal.common.constants.Actions;
 /*import games.stendhal.common.constants.Actions;
 import games.stendhal.server.actions.UseAction;*/
 import games.stendhal.server.core.engine.SingletonRepository; //NEED TO CHANGE SOME OF THESE TO CORRECT CONTEXT
@@ -46,6 +48,7 @@ import games.stendhal.server.entity.npc.fsm.Engine;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import games.stendhal.server.maps.semos.wizardstower.WizardsGuardStatueNPC;
+import marauroa.common.game.RPAction;
 //import marauroa.common.game.RPAction;
 /*import games.stendhal.server.maps.fado.tavern.MaidNPC;*/
 import utilities.PlayerTestHelper;
@@ -99,6 +102,8 @@ public class ZekielsPracticalTestTest {
 		//Puts candle on floor then leaves
 		Item candle = SingletonRepository.getEntityManager().getItem("candle");
 		zone.add(candle);
+		RPAction action = new RPAction();
+		action.put(Actions.TARGET_PATH, Arrays.asList(Integer.toString(candle.getID().getObjectID()))); // FROM UseActionTest should put candle on floor
 		//Teleport to basement
 		new TeleportAction("int_semos_wizards_tower_basement", 15, 15, Direction.DOWN);
 		//Re-enter through Zekiel
