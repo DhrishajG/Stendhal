@@ -16,7 +16,8 @@ public class CandleCheckAction implements ChatAction{
 			if (candle != null) {
 				if (candle.getQuantity()>0) {
 					//zone.remove(candle);
-					candle.removeOne();
+					//candle.removeOne();
+					SingletonRepository.getEntityManager().getItem("candle").removeOne();
 				}
 			}
 		}
