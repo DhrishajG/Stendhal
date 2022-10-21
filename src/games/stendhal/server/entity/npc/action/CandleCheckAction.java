@@ -13,8 +13,11 @@ public class CandleCheckAction implements ChatAction{
 
 		public CandleCheckAction(StendhalRPZone zone) {
 			Item candle = SingletonRepository.getEntityManager().getItem("candle");
-			if (candle.getQuantity()>0) {
-				zone.remove(candle);
+			if (candle != null) {
+				if (candle.getQuantity()>0) {
+					//zone.remove(candle);
+					candle.removeOne();
+				}
 			}
 		}
 
