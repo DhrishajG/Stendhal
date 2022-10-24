@@ -50,6 +50,7 @@ import games.stendhal.server.entity.npc.fsm.Engine;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import games.stendhal.server.maps.semos.wizardstower.WizardsGuardStatueNPC;
+import games.stendhal.server.maps.semos.wizardstower.WizardsGuardStatueSpireNPC;
 import marauroa.common.game.RPAction;
 //import marauroa.common.game.RPAction;
 /*import games.stendhal.server.maps.fado.tavern.MaidNPC;*/
@@ -74,7 +75,10 @@ public class ZekielsPracticalTestTest {
 	public void setUp() {
 		zone = new StendhalRPZone("int_semos_wizards_tower_basement");
 		MockStendlRPWorld.get().addRPZone(zone);
+		//Zekiel the guardian
 		new WizardsGuardStatueNPC().configureZone(zone,null);
+		//Zekiel
+		new WizardsGuardStatueSpireNPC().configureZone(zone,null);
 
 
 		AbstractQuest quest = new ZekielsPracticalTestQuest();
