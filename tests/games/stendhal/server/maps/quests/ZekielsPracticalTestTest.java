@@ -110,11 +110,11 @@ public class ZekielsPracticalTestTest {
 		 */// FROM UseActionTest should put candle on floor
 		
 		new EquipItemAction("candle",1);
-		assertEquals("player has item <1 candle>",new PlayerHasItemWithHimCondition("candle"));
+		assertEquals("player has item <1 candle>",new PlayerHasItemWithHimCondition("candle").toString());
 		
 		new DropItemAction("candle",1);
 		
-		assertEquals("player has item <1 candle>",new PlayerHasItemWithHimCondition("candle"));
+		assertEquals("player has item <1 candle>",new PlayerHasItemWithHimCondition("candle").toString());
 		
 		//Teleport to basement
 		/*
