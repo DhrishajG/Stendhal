@@ -112,7 +112,7 @@ public class ZekielsPracticalTestTest {
 		new DropItemAction("candle",1);
 		
 		
-		assertEquals(true,player.isEquipped("candle"));
+		assertEquals(1,player.getNumberOfEquipped("candle"));
 		
 		//Teleport to basement
 		/*
