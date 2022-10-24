@@ -12,7 +12,7 @@
  ***************************************************************************/
 package games.stendhal.server.maps.quests;
 import static org.junit.Assert.assertEquals;
-import static utilities.SpeakerNPCTestHelper.getReply;
+//import static utilities.SpeakerNPCTestHelper.getReply;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import games.stendhal.common.Direction;
+//import games.stendhal.common.Direction;
 import games.stendhal.common.constants.Actions;
 /*import games.stendhal.common.constants.Actions;
 import games.stendhal.server.actions.UseAction;*/
@@ -32,9 +32,11 @@ import games.stendhal.server.entity.item.Item;
 /*import games.stendhal.server.entity.npc.ConversationPhrases;
 import games.stendhal.server.entity.npc.ConversationStates;*/
 import games.stendhal.server.entity.npc.SpeakerNPC;
+import games.stendhal.server.entity.npc.action.DropItemAction;
+import games.stendhal.server.entity.npc.action.EquipItemAction;
 //import games.stendhal.server.entity.npc.action.DropItemAction;
 import games.stendhal.server.entity.npc.action.SetQuestAction;
-import games.stendhal.server.entity.npc.action.TeleportAction;
+//import games.stendhal.server.entity.npc.action.TeleportAction;
 /*import games.stendhal.server.entity.npc.action.DropItemAction;
 import games.stendhal.server.entity.npc.action.IncreaseKarmaAction;
 import games.stendhal.server.entity.npc.action.IncreaseXPAction;
@@ -93,35 +95,29 @@ public class ZekielsPracticalTestTest {
 		en.step(player, "send"); //Should teleport to level 1
 		assertEquals(player.isQuestInState("zekiels_practical_test", "first_state"),true); //Checks quest state
 		
-		/*
-		 * //Choose malleus / Get candle en.step(player, "Malleus");
-		 * assertEquals("You have chosen the correct one of Malleus. Now use the candle at the shimmering spot of the hexagram."
-		 * ,getReply(npc)); //Drop candle new DropItemAction("candle");//should be at
-		 * 15,16
-		 */		
 		//Puts candle on floor then leaves
 		Item candle = SingletonRepository.getEntityManager().getItem("candle");
 		zone.add(candle);
 		RPAction action = new RPAction();
 		action.put(Actions.TARGET_PATH, Arrays.asList(Integer.toString(candle.getID().getObjectID()))); // FROM UseActionTest should put candle on floor
+		
+		new EquipItemAction("candle",1);
+		new DropItemAction("candle",1);
+		
+		
+		assertEquals(true,player.isEquipped("candle"));
+		
 		//Teleport to basement
-		new TeleportAction("int_semos_wizards_tower_basement", 15, 15, Direction.DOWN);
-		//Re-enter through Zekiel
-		en.step(player, "hello");
-		assertEquals("Greetings! You have so far failed the practical test. Tell me, if you want me to #send you on it again right now, or if there is anything you want to #learn about it first.",getReply(npc));
-		en.step(player, "send"); //Should teleport to level 1
-		//Check no candle on floor
-		candle = SingletonRepository.getEntityManager().getItem("candle");
-		assertEquals(0, candle.getQuantity());
-
-		// Same using item path
 		/*
-		 * cheese = SingletonRepository.getEntityManager().getItem("cheese");
-		 * zone.add(cheese); action = new RPAction(); action.put(Actions.TARGET_PATH,
-		 * Arrays.asList(Integer.toString(cheese.getID().getObjectID())));
-		 * assertEquals(1, cheese.getQuantity()); ua.onAction(player, action);
-		 * assertEquals(0, cheese.getQuantity());
+		 * new TeleportAction("int_semos_wizards_tower_basement", 15, 15,
+		 * Direction.DOWN); //Re-enter through Zekiel en.step(player, "hello");
+		 * assertEquals("Greetings! You have so far failed the practical test. Tell me, if you want me to #send you on it again right now, or if there is anything you want to #learn about it first."
+		 * ,getReply(npc)); en.step(player, "send"); //Should teleport to level 1
+		 * //Check no candle on floor candle =
+		 * SingletonRepository.getEntityManager().getItem("candle"); assertEquals(0,
+		 * candle.getQuantity());
 		 */
+
 		//Win
 		
 		
