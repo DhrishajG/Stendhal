@@ -37,6 +37,7 @@ import games.stendhal.server.entity.npc.action.EquipItemAction;
 //import games.stendhal.server.entity.npc.action.DropItemAction;
 import games.stendhal.server.entity.npc.action.SetQuestAction;
 import games.stendhal.server.entity.npc.action.TeleportAction;
+import games.stendhal.server.entity.npc.condition.PlayerHasItemWithHimCondition;
 /*import games.stendhal.server.entity.npc.action.DropItemAction;
 import games.stendhal.server.entity.npc.action.IncreaseKarmaAction;
 import games.stendhal.server.entity.npc.action.IncreaseXPAction;
@@ -109,11 +110,11 @@ public class ZekielsPracticalTestTest {
 		 */// FROM UseActionTest should put candle on floor
 		
 		new EquipItemAction("candle",1);
-		assertEquals(1,player.getNumberOfEquipped("candle"));
+		assertEquals(true,new PlayerHasItemWithHimCondition("candle"));
 		
 		new DropItemAction("candle",1);
 		
-		assertEquals(1,player.getNumberOfEquipped("candle"));
+		assertEquals(true,new PlayerHasItemWithHimCondition("candle"));
 		
 		//Teleport to basement
 		/*
