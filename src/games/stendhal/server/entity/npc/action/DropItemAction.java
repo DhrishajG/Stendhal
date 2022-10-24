@@ -62,8 +62,8 @@ public class DropItemAction implements ChatAction {
 	@Override
 	public void fire(final Player player, final Sentence sentence, final EventRaiser npc) {
 		final boolean res = player.drop(itemName, amount);
-		boolean validLoc = (player.getZone().getName() != "int_semos_wizards_tower_1");
-		if (!res && validLoc) {
+		//boolean validLoc = (player.getZone().getName() != "int_semos_wizards_tower_1");
+		if (!res) {
 			logger.error("Cannot drop " + amount + " " + itemName,
 					new Throwable());
 		}
