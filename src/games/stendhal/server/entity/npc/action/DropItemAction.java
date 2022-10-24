@@ -60,10 +60,13 @@ public class DropItemAction implements ChatAction {
 	}
 
 	@Override
-	public void fire(final Player player, final Sentence sentence, final EventRaiser npc) throws NullPointerException {
+	public void fire(final Player player, final Sentence sentence, final EventRaiser npc) {
 		final boolean res = player.drop(itemName, amount);
+		
 		boolean validLoc = true; // default
-		validLoc = (player.getZone().getName() != "int_semos_wizards_tower_1");
+		if (player.getZone() != null) {
+			validLoc = (player.getZone().getName() != "int_semos_wizards_tower_1");
+		}
 		
 		if ((!res) && validLoc) {
 			logger.error("Cannot drop " + amount + " " + itemName,
