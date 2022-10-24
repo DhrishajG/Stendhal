@@ -109,8 +109,9 @@ public class ZekielsPracticalTestTest {
 		 */// FROM UseActionTest should put candle on floor
 		
 		new EquipItemAction("candle",1);
-		new DropItemAction("candle",1);
+		assertEquals(1,player.getNumberOfEquipped("candle"));
 		
+		new DropItemAction("candle",1);
 		
 		assertEquals(1,player.getNumberOfEquipped("candle"));
 		
