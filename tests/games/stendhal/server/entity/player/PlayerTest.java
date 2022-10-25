@@ -34,6 +34,7 @@ import games.stendhal.common.constants.Nature;
 import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.entity.Entity;
 import games.stendhal.server.entity.Outfit;
+import games.stendhal.server.entity.creature.Sheep;
 import games.stendhal.server.entity.item.Item;
 import games.stendhal.server.entity.status.StatusType;
 import games.stendhal.server.maps.MockStendhalRPRuleProcessor;
@@ -516,5 +517,29 @@ public class PlayerTest {
 		player.setSkill(Nature.LIGHT.toString()+"_xp", "blah");
 		int magicSkillXpLater = player.getMagicSkillXp(Nature.LIGHT);
 		assertThat(magicSkillXpLater, is(0));
+		
+	}
+	
+	/**
+	* Tests for Sheep out of bound message
+	*/
+	@Test
+	public void sheepMessageTest() {
+		
+		final StendhalRPZone zone = new StendhalRPZone("testzone", 10, 10);
+		MockStendlRPWorld.get().addRPZone(zone);
+
+		final Player bob = PlayerTestHelper.createPlayer("bob");
+		zone.add(bob);
+		
+		final Sheep meh = new Sheep(bob);
+		
+		bob.setPosition(10, 10);
+		
+		bob.isZoneChangeAllowed();
+		
+		assertThat(meh.events().get(0).get("text"), is("Baaaaaaa oh no i'm too far away"));
+
+
 	}
 }
