@@ -53,7 +53,7 @@ public class DropItemAction implements ChatAction {
 	 * @param amount
 	 *            for StackableItems
 	 */
-	@Dev
+	@Dev 
 	public DropItemAction(final String itemName, @Dev(defaultValue="1") final int amount) {
 		this.itemName = checkNotNull(itemName);
 		this.amount = amount;
