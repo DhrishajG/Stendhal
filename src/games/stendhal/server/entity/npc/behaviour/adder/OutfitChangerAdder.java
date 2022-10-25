@@ -132,14 +132,14 @@ public class OutfitChangerAdder {
 							final EventRaiser npc) {
 						final String itemName = currentBehavRes.getChosenItemName();
 						List<String> outfit_names_array = outfitBehaviour.getOutfitNames(itemName);
-						
-						npc.say("You can choose");
-						int i = 1;
+
+						String reply = "You can choose ";
 						for (String name : outfit_names_array) {
-							npc.say(Integer.toString(i) + ". " + name);
-							i += 1;
+							reply += name + ", ";
 						}
-						npc.say("Type the name of " + itemName + "(without the number).");
+						reply = reply.substring(0, reply.length()-2);
+						reply += ". Type the name of " + itemName + ".";
+						npc.say(reply);
 					}
 				});
 		
