@@ -1681,6 +1681,7 @@ public class Player extends DressedEntity implements UseListener {
 
 		if (sheep != null) {
 			if (squaredDistance(sheep) > 7 * 7) {
+				sheep.say("Baaaaaaa oh no i'm too far away");
 				return false;
 			}
 		}
