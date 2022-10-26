@@ -347,4 +347,73 @@ public class FruitsForCoralia extends AbstractQuest {
 	public String getNPCName() {
 		return "Coralia";
 	}
+    
+    //Checks user inventory for all fruits, returning appropriate chat action
+    private ChatAction checkForAll(final Player player, ChatAction completeAction) {
+    	List<String> missing = missingItems(player);
+    	//ItemCollection needed = new ItemCollection( ) {};
+		//final String itemsText = player.getQuest(QUEST_SLOT);
+    	//needed.addFromQuestStateString(itemsText);
+    	
+    	boolean all = true;
+    	
+    	for (final String item: missing) {
+    		System.out.println(item);
+    		int numNeeded = Integer.parseInt(item.split("=")[1]);
+    		if(!player.drop(item.split("=")[0], numNeeded)){
+    			all = false;
+    		}
+    	}
+    	
+    	if (!all) {
+    		return new SayTextAction("You didn't have all the fruits I need!");
+    	}
+    	
+    	return completeAction;
+    }
+    
+    //generates list of needed items and amounts
+    private List<String> neededItems(){ 
+    	final List<String> neededNum = Arrays.asList(NEEDED_ITEMS.split(";"));
+    	final List<String> result = new LinkedList<String>();
+    	
+    	for (String numString : neededNum) {
+    		result.add(numString);
+    	}
+    	
+    	return result;
+    	
+    }
+    
+    private List<String> missingItems(final Player player){ //returns list of missing items
+    	List<String> result = new LinkedList<String>();
+    	
+    	List<String> done = questText(player);
+    	
+    	List<String> needed = neededItems();
+    	
+    	for (String item : needed) {
+    		if (!done.contains(item)) {
+    			result.add(item);
+    		}
+    	}
+    	
+    	return done;
+    }
+    
+    //returns items still required for quest
+    private List<String> questText(final Player player){
+    	List<String> result = new LinkedList<String>();
+    	String doneText = player.getQuest(QUEST_SLOT);
+    	if (doneText == null) {
+			doneText = "";
+		}
+    	System.out.println(doneText);
+    	
+    	for (String numString : doneText.split(";")) {
+			result.add(numString);
+    	}
+    	
+    	return result;
+    }
 }
