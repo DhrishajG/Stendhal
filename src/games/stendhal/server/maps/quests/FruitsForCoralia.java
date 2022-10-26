@@ -369,16 +369,16 @@ public class FruitsForCoralia extends AbstractQuest {
     //Checks user inventory for all fruits, returning appropriate chat action
     private ChatAction checkForAll(final Player player, ChatAction completeAction) {
     	List<String> missing = missingItems(player);
-    	ItemCollection needed = new ItemCollection( ) {};
-		final String itemsText = player.getQuest(QUEST_SLOT);
-    	needed.addFromQuestStateString(itemsText);
+    	//ItemCollection needed = new ItemCollection( ) {};
+		//final String itemsText = player.getQuest(QUEST_SLOT);
+    	//needed.addFromQuestStateString(itemsText);
     	
     	boolean all = true;
     	
     	for (final String item: missing) {
     		System.out.println(item);
     		int numNeeded = Integer.parseInt(item.split("=")[1]);
-    		if(!needed.remove(item.split("=")[0], numNeeded)){
+    		if(!player.drop(item.split("=")[0], numNeeded)){
     			all = false;
     		}
     	}
