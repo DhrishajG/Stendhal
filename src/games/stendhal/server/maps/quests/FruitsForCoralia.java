@@ -1,13 +1,17 @@
 package games.stendhal.server.maps.quests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 import games.stendhal.common.grammar.Grammar;
+import games.stendhal.common.parser.Sentence;
 import games.stendhal.server.entity.npc.ChatAction;
 import games.stendhal.server.entity.npc.ConversationPhrases;
 import games.stendhal.server.entity.npc.ConversationStates;
+import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.npc.SpeakerNPC;
 import games.stendhal.server.entity.npc.action.CollectRequestedItemsAction;
 import games.stendhal.server.entity.npc.action.EquipRandomAmountOfItemAction;
@@ -297,7 +301,7 @@ public class FruitsForCoralia extends AbstractQuest {
     		new QuestActiveCondition(QUEST_SLOT),
     		ConversationStates.QUESTION_2,
     		null,
-    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any?"));
+    		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any, or #everything?"));
 
     	// player says he didn't bring any items
 		npc.add(ConversationStates.QUESTION_2,
@@ -325,6 +329,7 @@ public class FruitsForCoralia extends AbstractQuest {
 			new EquipRandomAmountOfItemAction("minor potion", 2, 8),
 			new SetQuestToTimeStampAction(QUEST_SLOT, 1)
 		);
+    			
 
     	// add triggers for the item names
     	final ItemCollection items = new ItemCollection();
@@ -341,10 +346,92 @@ public class FruitsForCoralia extends AbstractQuest {
     				completeAction,
     				ConversationStates.ATTENDING));
     	}
+    	
+    	//trigger for giving all items
+    	npc.add(ConversationStates.QUESTION_2, "everything",
+				null,
+				ConversationStates.QUESTION_1,
+				null,
+				new ChatAction () {
+    				@Override
+    				public void fire(final Player player, final Sentence sentence, final EventRaiser npc) {
+    					checkForAll(player, completeAction).fire(player, sentence, npc);
+    				}
+    			}
+    	);	    
     }
 
-	@Override
+    @Override
 	public String getNPCName() {
 		return "Coralia";
 	}
+    
+    //Checks user inventory for all fruits, returning appropriate chat action
+    private ChatAction checkForAll(final Player player, ChatAction completeAction) {
+    	List<String> missing = missingItems(player);
+    	ItemCollection needed = new ItemCollection( ) {};
+		final String itemsText = player.getQuest(QUEST_SLOT);
+    	needed.addFromQuestStateString(itemsText);
+    	
+    	boolean all = true;
+    	
+    	for (final String item: missing) {
+    		System.out.println(item);
+    		int numNeeded = Integer.parseInt(item.split("=")[1]);
+    		if(!needed.remove(item.split("=")[0], numNeeded)){
+    			all = false;
+    		}
+    	}
+    	
+    	if (!all) {
+    		return new SayTextAction("You didn't have all the fruits I need!");
+    	}
+    	
+    	return completeAction;
+    }
+    
+    //generates list of needed items and amounts
+    private List<String> neededItems(){ 
+    	final List<String> neededNum = Arrays.asList(NEEDED_ITEMS.split(";"));
+    	final List<String> result = new LinkedList<String>();
+    	
+    	for (String numString : neededNum) {
+    		result.add(numString);
+    	}
+    	
+    	return result;
+    	
+    }
+    
+    private List<String> missingItems(final Player player){ //returns list of missing items
+    	List<String> result = new LinkedList<String>();
+    	
+    	List<String> done = questText(player);
+    	
+    	List<String> needed = neededItems();
+    	
+    	for (String item : needed) {
+    		if (!done.contains(item)) {
+    			result.add(item);
+    		}
+    	}
+    	
+    	return done;
+    }
+    
+    //returns items still required for quest
+    private List<String> questText(final Player player){
+    	List<String> result = new LinkedList<String>();
+    	String doneText = player.getQuest(QUEST_SLOT);
+    	if (doneText == null) {
+			doneText = "";
+		}
+    	System.out.println(doneText);
+    	
+    	for (String numString : doneText.split(";")) {
+			result.add(numString);
+    	}
+    	
+    	return result;
+    }
 }
