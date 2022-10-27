@@ -378,7 +378,7 @@ public class FruitsForCoralia extends AbstractQuest {
     	for (final String item: missing) {
     		System.out.println(item);
     		int numNeeded = Integer.parseInt(item.split("=")[1]);
-    		if(!needed.remove(item.split("=")[0], numNeeded)){
+    		if(!player.drop(item.split("=")[0], numNeeded)){
     			all = false;
     		}
     	}
