@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import games.stendhal.common.Rand;
 import games.stendhal.common.grammar.ItemParserResult;
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.events.TurnListener;
@@ -33,6 +32,9 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 
 	/** outfit expiry in minutes */
 	private int endurance;
+	
+	/** index of cloth in outfitTypes list */
+	private int index_of_cloth;
 
 	private final String wearOffMessage;
 
@@ -40,11 +42,12 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	protected boolean resetBeforeChange = false;
 
 	// all available outfit types are predefined here.
+	// when new outfit add to this outfitTypes
+	// make sure the name of cloth is also added to the next outfitNames variable.
 	private static Map<String, List<Outfit>> outfitTypes = new HashMap<String, List<Outfit>>();
 	static {
 		// In each line, there is one possible outfit of this
 		// outfit type, in the order: hair, head, dress, base.
-		// One of these outfit will be chosen randomly.
 
 		// swimsuits for men
 		outfitTypes.put("trunks", Arrays.asList(
@@ -68,6 +71,7 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 				new Outfit("mask=997,hair=-1,hat=-1"),
 				new Outfit("mask=998,hair=-1,hat=-1"),
 				new Outfit("mask=999,hair=-1,hat=-1")));
+		
 
 		// wedding dress for brides
 		// it seems this must be an array as list even though it's only one item
@@ -76,6 +80,33 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 		// // wedding suit for grooms
 		// it seems this must be an array as list even though it's only one item
 		outfitTypes.put("suit", Arrays.asList(new Outfit("dress=987")));
+	}
+	
+	// all available outfit names according to types are predefined here.
+	// all name should be lowercase.
+	private static Map<String, List<String>> outfitNames = new HashMap<String, List<String>>();
+	static {
+		outfitNames.put("trunks", Arrays.asList(
+				"black trunk",
+				"blue trunk",
+				"green trunk",
+				"yellow trunk"));
+		outfitNames.put("swimsuit", Arrays.asList(
+				"pink swimsuit",
+				"sky blue swimsuit",
+				"apricot swimsuit",
+				"red swimsuit"));
+		outfitNames.put("mask", Arrays.asList(
+				"brown mouse",
+				"green frog",
+				"black bird",
+				"brown monkey",
+				"brown white fox",
+				"brown blue eye"));
+		outfitNames.put("gown", Arrays.asList(
+				"gown1"));
+		outfitNames.put("suit", Arrays.asList(
+				"suit1"));
 	}
 
 	/**
@@ -237,7 +268,8 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 		}
 
 		final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
-		final Outfit newOutfit = Rand.rand(possibleNewOutfits);
+//		final Outfit newOutfit = Rand.rand(possibleNewOutfits);
+		final Outfit newOutfit = possibleNewOutfits.get(index_of_cloth);
 		player.setOutfit(newOutfit.putOver(player.getOutfit()), true);
 		player.registerOutfitExpireTime(endurance);
 	}
@@ -297,5 +329,31 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	 */
 	public int getEndurance() {
 		return endurance;
+	}
+	
+	/**
+	 * Array of outfits
+	 * @param outfit type
+	 * @return outfitTypes value 
+	 */
+	public List<Outfit> getOutfitTypes(String key) {
+		return outfitTypes.get(key);
+	}
+	
+	/**
+	 * Array of outfit names
+	 * @param outfit type
+	 * @return outfitnames
+	 */
+	public List<String> getOutfitNames(String key) {
+		return outfitNames.get(key);
+	}
+	
+	/**
+	 * set the value of index of cloth
+	 * @param index of cloth in outfitTypes array
+	 */
+	public void setIndexOfCloth(int index) {
+		index_of_cloth = index;
 	}
 }

@@ -30,6 +30,11 @@ public enum ConversationStates {
 	 * The SpeakerNPC is attending one player; all prior talk is irrelevant.
 	 */
 	ATTENDING,
+	
+	/**
+	 * The player wants to select the clothing.
+	 */
+	OFFER,
 
 	/**
 	 * The player wants to buy an item; the SpeakerNPC has told the price and
