@@ -191,6 +191,17 @@ public class LeaderNPCTest {
 		assertTrue(en.step(player, "weapon"));
 		assertEquals("Well, your assassin dagger has quite low damage capability, doesn't it? You should look for something with a better attack to rate ratio. At least you can hit fast with it, so it may be good enough against creatures weaker than you.", getReply(npc));
 		player.drop(weapon8);
+		
+		final Item weapon9 = new Item("rod of the gm", "club", "subclass", null); //TODO
+		weapon9.setEquipableSlots(Arrays.asList("lhand"));
+		weapon9.put("atk", 100); //TODO
+		weapon9.put("rate", 2); //TODO
+		player.equipToInventoryOnly(weapon9);
+		assertTrue(player.isEquipped("rod of the gm"));
+
+		assertTrue(en.step(player, "weapon"));
+		assertEquals("Your rod of the gm is the strongest weapon I have come across. I have never seen a weapon with a higher damage output. It should be ideal for creatures stronger than you.", getReply(npc));
+		player.drop(weapon9);
 
 		//say goodbye
 		assertTrue(en.step(player, "bye"));
