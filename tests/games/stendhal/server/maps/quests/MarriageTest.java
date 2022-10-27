@@ -198,6 +198,8 @@ public class MarriageTest {
 		assertEquals("To wear a suit will cost 50. Do you want to wear it?", getReply(npc));
 		PlayerTestHelper.equipWithMoney(player, 50);
 		en.step(player, "yes");
+		assertEquals("You can choose suit1. Type the name of suit.", getReply(npc));
+		en.step(player, "suit1");
 		assertEquals("Thanks, and please don't forget to #return it when you don't need it anymore!", getReply(npc));
 		en.step(player2, "bye");
 		assertEquals("Good bye, I hope everything goes well for you.", getReply(npc));
@@ -226,6 +228,8 @@ public class MarriageTest {
 		en.step(player2, "wear a gown");
 		assertEquals("To wear a gown will cost 100. Do you want to wear it?", getReply(npc));
 		en.step(player2, "yes");
+		assertEquals("You can choose gown1. Type the name of gown.", getReply(npc));
+		en.step(player, "gown1");
 		assertEquals("Thanks, and please don't forget to #return it when you don't need it anymore!", getReply(npc));
 		en.step(player2, "bye");
 		assertEquals("Have a lovely time!", getReply(npc));
