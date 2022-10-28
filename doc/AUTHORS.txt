@@ -201,3 +201,19 @@ Notable contributors:
 - SnowFlake
   · Maps maker
   · NPCs
+- Dhrishaj Garg
+  · Coder (made Florence Bouillabaisse a visible NPC in Ados Market)
+- Anna Spence
+  · Coder (fixed 'bows for ouchit' by making Karl give player horse hair on saying 'horse hairs')
+- Shemaine Vij
+  · Coder (made Lieutenant Drilenun accept rod of the gm as a respectable weapon)
+- Kimi Goyal
+  · Coder (made Haunchy accept charcoal in 'Coal for Haunchy' quest)
+- Aisha Wahid
+  · Coder (added an error message to user if they try to shift zones when sheep is too far away)
+- Jonathan Hackett
+  · Coder (made Coralia react to #everything)
+- Jungwoo Koo
+  · Coder (allowed players to chose masks from Fidorea)
+- Oliver Quinn
+  · Coder (prevented players from cheating on Zekiel's practical test)

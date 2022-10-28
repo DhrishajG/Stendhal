@@ -3,6 +3,19 @@ Changelog
 ---------
 
 
+1.40uom
+
+*world*
+- Florence Bouillabaisse can now be found in Ados Market as the fish soup maker NPC (instead of Florence Boullabaisse)
+- players get a message "Baaaaaaa oh no i'm too far away" when they try to change zones but their sheep is far away
+- Lieutenant Drilenun now accepts 'rod of the gm' as a good weapon with the highest damage output
+- players can choose what masks they get from Fidorea
+- quest changes:
+      - Karl gives players horse hair when they says "horse hairs"
+      - Haunchy accepts charcoal for his BBQ
+      - players can give all fruits to Coralia at once if they use '#everything'
+      - candles cannot be left on the floor in wizard tower rooms allowing the player to skip levels of Zekiel's practical test
+
 1.40
 
 *world*
@@ -126,7 +139,16 @@ Changelog
   - ankh
   - blank scroll
   - ice scroll
-  - keyring
+  - keyring*world*
+- Florence Bouillabaisse can now be found in Ados Market as the fish soup maker NPC (instead of Florence Boullabaisse)
+- players get a message "Baaaaaaa oh no i'm too far away" when they try to change zones but their sheep is far away
+- Lieutenant Drilenun now accepts 'rod of the gm' as a good weapon with the highest damage output
+- players can choose what masks they get from Fidorea
+- quest changes:
+      - Karl gives players horse hair when they says "horse hairs"
+      - Haunchy accepts charcoal for his BBQ
+      - players can give all fruits to Coralia at once if they use '#everything'
+      - candles cannot be left on the floor in wizard tower rooms allowing the player to skip levels of Zekiel's practical test
   - mana
   - necromancers staff
   - reptile egg
