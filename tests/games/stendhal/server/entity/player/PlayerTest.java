@@ -266,7 +266,19 @@ public class PlayerTest {
 		assertFalse(bob.getStatusList().isImmune(StatusType.POISONED));
 
 	}
-
+	
+	/**
+	 * Test for isCharming (pipe player)
+	 */
+	@Test
+	public void testIsCharming() throws Exception{
+		Player piper = PlayerTestHelper.createPlayer("piper");
+		assertFalse(piper.isCharming());
+		piper.setCharming(true);
+		assertTrue(piper.isCharming());
+		piper.setCharming(false);
+		assertFalse(piper.isCharming());
+	}
 	/**
 	 * Tests for isBadBoy.
 	 */
