@@ -20,13 +20,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import games.stendhal.server.actions.move.PushAction;
 import games.stendhal.server.entity.Entity;
 import games.stendhal.server.entity.PassiveEntity;
 import games.stendhal.server.entity.RPEntity;
 import games.stendhal.server.entity.item.Corpse;
 import games.stendhal.server.entity.mapstuff.chest.Chest;
+import games.stendhal.server.entity.player.Player;
 import marauroa.common.game.RPClass;
 import marauroa.common.game.SlotIsFullException;
+import utilities.PlayerTestHelper;
 
 public class CartTest{
 	@Before
@@ -40,7 +43,25 @@ public class CartTest{
 		}
 	}
 
+	
 	@After
 	public void tearDown() throws Exception {
+	}
+	//Player should be able to push cart
+	@Test
+	public final void pushable() {
+		Cart cart = new Cart();
+		Player player = PlayerTestHelper.createPlayer("bob");
+		AssertEquals(player.canPush(cart),true);
+	}
+	
+	@Test
+	public final void testOpen() {
+		final Cart cart = new Cart();
+		assertFalse(cart.isOpen());
+		cart.open();
+
+		assertTrue(cart.isOpen());
+		cart.close();
 	}
 }
