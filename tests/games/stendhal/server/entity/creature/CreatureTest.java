@@ -73,10 +73,10 @@ public class CreatureTest {
 		Player target = PlayerTestHelper.createPlayer("bob");
 		target.setCharming(true);
 		MockCreature attacker = new MockCreature();
-		attacker.setTarget(target);
 		
 		zone.add(attacker);
 		zone.add(target);
+		attacker.setTarget(target);
 		
 		assertFalse(attacker.canHit(target));
 		assertTrue(attacker.isCharmed());

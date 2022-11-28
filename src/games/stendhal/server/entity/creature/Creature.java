@@ -1187,4 +1187,8 @@ public class Creature extends NPC {
 		}
 		return getZone() == player.getZone();
 	}
+	
+	public boolean isCharmed() {
+		return false;
+	}
 }

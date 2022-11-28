@@ -2918,4 +2918,22 @@ public class Player extends DressedEntity implements UseListener {
 		String[] values = value.split(" ");
 		return Integer.parseInt(values[0]) * Integer.parseInt(values[1]);
 	}
+	
+	/**
+	 * returns whether player is in the charming state
+	 * (stub)
+	 * 
+	 * @return player charming state
+	 */
+	public boolean isCharming() {
+		return false;
+	}
+	
+	/**
+	 * sets player's charm state
+	 * (stub)
+	 * 
+	 * @param charm state 
+	 */
+	public void setCharming(boolean value) {}
 }
