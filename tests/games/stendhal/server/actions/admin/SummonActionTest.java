@@ -153,7 +153,7 @@ public class SummonActionTest {
 		assertEquals("fishing_rod", item.get("subclass"));
 	}
 	
-	
+	@Test
 	public final void testSummonBlackHelmet() {
 		final Player pl = PlayerTestHelper.createPlayer("hugo");
 
