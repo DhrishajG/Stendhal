@@ -51,8 +51,8 @@ public class BlackHelmetTest {
 		final StendhalRPZone zone = new StendhalRPZone("zone");
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
-		// final Item helmet = SingletonRepository.getEntityManager().getItem("black helmet");
-		// anna.equip("head", helmet);
+		final Item helmet = SingletonRepository.getEntityManager().getItem("black helmet");
+		anna.equip("head", helmet);
 		anna.setHP(1000);
 		
 		Creature knight = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial knight"));
@@ -61,6 +61,28 @@ public class BlackHelmetTest {
 		zone.add(knight);
 		knight.setTarget(anna);
 		knight.attack();
+		
+		assertEquals(anna.getHP(), 1000);
+	}
+	
+	/**
+	 * Tests that a player wearing the helmet is not attacked by an imperial defender
+	 */
+	@Test
+	public void testImperialDefender() {
+		final StendhalRPZone zone = new StendhalRPZone("zone");
+		MockStendlRPWorld.get().addRPZone(zone);
+		final Player anna = PlayerTestHelper.createPlayer("anna");
+		final Item helmet = SingletonRepository.getEntityManager().getItem("black helmet");
+		anna.equip("head", helmet);
+		anna.setHP(1000);
+		
+		Creature defender = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial defender"));
+		
+		zone.add(anna);
+		zone.add(defender);
+		defender.setTarget(anna);
+		defender.attack();
 		
 		assertEquals(anna.getHP(), 1000);
 	}
