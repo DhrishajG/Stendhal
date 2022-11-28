@@ -104,11 +104,6 @@ public class SummonAction extends AdministrationAction {
 					found(type, sheep);
 				}
 			}
-			else if("black helmet".equals(type))
-			{
-				final Black_Helmet black_helmet= new black_helmet(player);
-				found(type, black_helmet);
-			}
 		}
 	}
 

@@ -46,18 +46,20 @@ public class BlackHelmet extends Item {
 	}
 
 	/**
-	 * Notify the player that it is not required to carry this ring
-	 * in the finger slot to get its benefits.
+	 * If the player puts the helmet in the head slot, then they become invisible
+	 * this method returns true if the player was not already invisible, and false otherwise
+	 * This as per the onEqipped definition to return whether the method 'indicate whether it made any change'
 	 */
 	@Override
 	public boolean onEquipped(final RPEntity entity, final String slot) {
 		boolean already_invisible = false;
 		if (slot.equals("head") && entity instanceof Player) {	
-			if (entity.isInvisibleToCreatures()) {
+			if (((Player)entity).isInvisibleToCreatures()) {
 				already_invisible = true;
 			}
-			new GameEvent(entity.getName(), INVISIBLE, "on").raise();
+			((Player) entity).setInvisible(true);
+			new GameEvent(((Player)entity).getName(), INVISIBLE, "on").raise();
 		}
-		return already_invisible;
+		return !already_invisible;
 	}
 }
