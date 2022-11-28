@@ -25,7 +25,7 @@ public class Cart extends Block implements UseListener{
 	private Chest cartChest;
 	
 	public Cart() {
-		super(true,"hay_cart"); //Init pushable block with hay cart sprite [sprite untested]
+		super(true,"hay_cart"); 
 		cartChest = new Chest();
 		setRPClass(CART_RPCLASS_NAME);
 		put("type", CART_RPCLASS_NAME);
@@ -60,6 +60,6 @@ public class Cart extends Block implements UseListener{
 
 	public void close() {
 		cartChest.close();
-		}
+	}
 	
 }
