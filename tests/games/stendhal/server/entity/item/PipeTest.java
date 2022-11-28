@@ -22,7 +22,7 @@ public class PipeTest{
 		MockStendlRPWorld.get();
 	}
 	
-	//tests that pipe is created
+	//tests that pipe is created and throws error if not
 	@Test
 	public void testPipe()
 	 throws Exception {
