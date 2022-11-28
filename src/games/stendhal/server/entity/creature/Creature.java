@@ -1123,8 +1123,6 @@ public class Creature extends NPC {
 
 	@Override
 	public boolean attack() {
-		if (this.isCharmed()) return false; //Creature is unable to attack if target is charming using pipe
-		
 		boolean res = super.attack();
 
 		// count hits for corpse protection
@@ -1188,21 +1186,5 @@ public class Creature extends NPC {
 			return false;
 		}
 		return getZone() == player.getZone();
-	}
-	
-	/**
-	 * checks if target has the charming state
-	 * (set using pipe item)
-	 * 
-	 * @return whether target is charming
-	 */
-	
-	public boolean isCharmed() {
-		final RPEntity target = this.getAttackTarget();
-		if (target instanceof Player) {
-			Player player = (Player) target;
-			return player.isCharming();
-		}
-		return false;
 	}
 }

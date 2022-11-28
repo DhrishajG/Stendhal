@@ -157,11 +157,6 @@ public class Player extends DressedEntity implements UseListener {
 	 * last client action timestamp
 	 */
 	private long lastClientActionTimestamp = System.currentTimeMillis();
-	
-	/**
-	 * Defines whether player is charming enemies
-	 */
-	private boolean charming = false;
 
 	public static void generateRPClass() {
 		try {
@@ -2922,24 +2917,5 @@ public class Player extends DressedEntity implements UseListener {
 		}
 		String[] values = value.split(" ");
 		return Integer.parseInt(values[0]) * Integer.parseInt(values[1]);
-	}
-	
-	/**
-	 * sets player charming state
-	 * 
-	 * @param value charm state to set 
-	 */
-	
-	public void setCharming(boolean value) {
-		this.charming = value;
-	}
-	
-	/**
-	 * returns whether player is currently charming creatures
-	 * 
-	 * @return charm state
-	 */
-	public boolean isCharming(){
-		return this.charming;
 	}
 }
