@@ -106,6 +106,12 @@ public class Player extends DressedEntity implements UseListener {
 	 * List of portals that have been "unlocked" for this player.
 	 */
 	private final List<Integer> unlockedPortals;
+	
+	/**
+	 * Defines whether player is charming enemies
+	 */
+	private boolean charming = false;
+
 
 	private final PlayerQuests quests = new PlayerQuests(this);
 	private final PlayerDieer dieer = new PlayerDieer(this);
@@ -2921,19 +2927,19 @@ public class Player extends DressedEntity implements UseListener {
 	
 	/**
 	 * returns whether player is in the charming state
-	 * (stub)
 	 * 
 	 * @return player charming state
 	 */
 	public boolean isCharming() {
-		return false;
+		return this.charming;
 	}
 	
 	/**
 	 * sets player's charm state
-	 * (stub)
 	 * 
 	 * @param charm state 
 	 */
-	public void setCharming(boolean value) {}
+	public void setCharming(boolean value) {
+		this.charming = value;
+	}
 }
