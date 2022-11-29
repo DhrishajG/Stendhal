@@ -3,6 +3,7 @@ package games.stendhal.server.entity.item;
 import java.util.Map;
 
 import games.stendhal.server.entity.RPEntity;
+import games.stendhal.server.entity.player.Player;
 
 public class Pipe extends Item {
 	
@@ -24,10 +25,27 @@ public class Pipe extends Item {
 		}
 		else {
 		    user.sendPrivateText("Your holding pipe in hand.");
+		    
+		    Player player = (Player) user;
+		    player.setCharming(true);
+		    
 		    return true;
 		}		    	
-
-		}
+	}
 	
+	@Override
+	public boolean onUnequipped() {
+		RPEntity unequipper = (RPEntity) this.getContainerOwner();
+		
+		if (unequipper instanceof Player) {
+			Player player = (Player) unequipper;
+			if (player.isCharming()) {
+				player.setCharming(false);
+				unequipper.sendPrivateText("You stopped playing the pipe");
+			}
+		}
+		
+		return true;
+	}
 
 }
