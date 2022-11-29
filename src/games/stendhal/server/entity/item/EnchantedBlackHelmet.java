@@ -21,10 +21,10 @@ import games.stendhal.server.entity.player.Player;
 
 
 /**
- * A ring that protects from XP loss.
+ * A helmet that prevents an attack from any Imperial army members
  */
-public class BlackHelmet extends Item {
-	public BlackHelmet(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
+public class EnchantedBlackHelmet extends Item {
+	public EnchantedBlackHelmet(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
 		super(name, clazz, subclass, attributes);
 	}
 
@@ -33,31 +33,33 @@ public class BlackHelmet extends Item {
 	 *
 	 * @param item copied item
 	 */
-	public BlackHelmet(final BlackHelmet item) {
+	public EnchantedBlackHelmet(final EnchantedBlackHelmet item) {
 		super(item);
 	}
 
 	/**
-	 * Create a RingOfLife.
+	 * Create a Black Helmet that is enchanted to act as a disguise.
 	 */
-	public BlackHelmet() {
-		super("black helmet", "helmet", "black-helmet", null);
+	public EnchantedBlackHelmet() {
+		super("enchanted black helmet", "helmet", "enchanted-black-helmet", null);
 		put("amount", 1);
 	}
 
 	/**
-	 * Notify the player that it is not required to carry this ring
-	 * in the finger slot to get its benefits.
+	 * If the player puts the helmet in the head slot, then they become invisible
+	 * this method returns true if the player was not already invisible, and false otherwise
+	 * This as per the onEqipped definition to return whether the method 'indicate whether it made any change'
 	 */
 	@Override
 	public boolean onEquipped(final RPEntity entity, final String slot) {
 		boolean already_invisible = false;
 		if (slot.equals("head") && entity instanceof Player) {	
-			if (entity.isInvisibleToCreatures()) {
+			if (((Player)entity).isInvisibleToCreatures()) {
 				already_invisible = true;
 			}
-			new GameEvent(entity.getName(), INVISIBLE, "on").raise();
+			((Player) entity).setInvisible(true);
+			new GameEvent(((Player)entity).getName(), INVISIBLE, "on").raise();
 		}
-		return already_invisible;
+		return !already_invisible;
 	}
 }

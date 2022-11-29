@@ -13,6 +13,7 @@
 package games.stendhal.server.entity.item;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -28,7 +29,7 @@ import marauroa.common.Log4J;
 import utilities.PlayerTestHelper;
 import utilities.RPClass.ItemTestHelper;
 
-public class BlackHelmetTest {
+public class EnchantedBlackHelmetTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Log4J.init();
@@ -48,11 +49,9 @@ public class BlackHelmetTest {
 	 */
 	@Test
 	public void testImperialKnight() {
-		final StendhalRPZone zone = new StendhalRPZone("zone");
+		final StendhalRPZone zone = new StendhalRPZone("zone", 100, 100);
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
-		final Item helmet = SingletonRepository.getEntityManager().getItem("black helmet");
-		anna.equip("head", helmet);
 		anna.setHP(1000);
 		
 		Creature knight = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial knight"));
@@ -60,9 +59,12 @@ public class BlackHelmetTest {
 		zone.add(anna);
 		zone.add(knight);
 		knight.setTarget(anna);
-		knight.attack();
+		final Item helmet = new EnchantedBlackHelmet();
 		
-		assertEquals(anna.getHP(), 1000);
+		knight.attack();
+		anna.equip("head", helmet);
+
+		assertEquals(1000, anna.getHP());
 	}
 	
 	/**
@@ -73,17 +75,17 @@ public class BlackHelmetTest {
 		final StendhalRPZone zone = new StendhalRPZone("zone");
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
-		final Item helmet = SingletonRepository.getEntityManager().getItem("black helmet");
+		final Item helmet = new EnchantedBlackHelmet();
 		anna.equip("head", helmet);
-		anna.setHP(1000);
+		// anna.setHP(1000);
 		
-		Creature defender = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial defender"));
+		// Creature defender = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial defender"));
 		
 		zone.add(anna);
-		zone.add(defender);
-		defender.setTarget(anna);
-		defender.attack();
+		// zone.add(defender);
+		// defender.setTarget(anna);
+		// defender.attack();
 		
-		assertEquals(anna.getHP(), 1000);
+		assertTrue(anna.isInvisibleToCreatures());
 	}
 }
