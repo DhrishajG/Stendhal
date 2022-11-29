@@ -21,7 +21,7 @@ import games.stendhal.server.entity.player.Player;
 
 
 /**
- * A ring that protects from XP loss.
+ * A helmet that prevents an attack from any Imperial army members
  */
 public class BlackHelmet extends Item {
 	public BlackHelmet(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
@@ -38,7 +38,7 @@ public class BlackHelmet extends Item {
 	}
 
 	/**
-	 * Create a RingOfLife.
+	 * Create a Black Helmet.
 	 */
 	public BlackHelmet() {
 		super("black helmet", "helmet", "black-helmet", null);
