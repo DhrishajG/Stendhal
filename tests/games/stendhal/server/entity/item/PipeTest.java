@@ -10,7 +10,6 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import games.stendhal.server.entity.RPEntity;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
@@ -19,6 +18,7 @@ public class PipeTest{
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 		MockStendlRPWorld.get();
 	}
 	
@@ -84,22 +84,6 @@ public class PipeTest{
 		assertTrue(newPipe.onUsed(user));
 	}
 	
-	//code stub for tests
-	private static class Pipe extends Item {
-
-		public Pipe(final String name, final String clazz,
-	            final String subclass, final Map<String, String> attributes) {
-	        super(name, clazz, subclass, attributes);
-	    }
-		
-		// determines whether pipe can be used and sets the state
-		@Override
-		public boolean onUsed(final RPEntity user) {
-			
-			return false;
-	    	
-		}
-
-	}
+	
 	
 }
