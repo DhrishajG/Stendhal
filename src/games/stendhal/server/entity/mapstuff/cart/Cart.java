@@ -18,14 +18,14 @@ import marauroa.common.game.RPClass;
 import marauroa.common.game.Definition.Type;
 
 public class Cart extends Block implements UseListener{
-	private static final String CART_RPCLASS_NAME = "cart";
+	private static final String CART_RPCLASS_NAME = "block";
 	private static final String Z_ORDER = "z";
 
 	
 	private Chest cartChest;
 	
 	public Cart() {
-		super(true,"hay_cart"); 
+		super(true,"block"); 
 		cartChest = new Chest();
 		setRPClass(CART_RPCLASS_NAME);
 		put("type", CART_RPCLASS_NAME);
@@ -33,10 +33,13 @@ public class Cart extends Block implements UseListener{
 	
 	public Cart(boolean multiPush) {
 		super(multiPush);
+		cartChest = new Chest();
+		setRPClass(CART_RPCLASS_NAME);
+		put("type", CART_RPCLASS_NAME);
 	}
 	
 	public static void generateRPClass() {
-		RPClass clazz = new RPClass("cart");
+		RPClass clazz = new RPClass("block");
 		clazz.isA("area");
 		// z order to control client side drawing
 		clazz.addAttribute(Z_ORDER, Type.INT);
