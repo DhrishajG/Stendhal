@@ -29,7 +29,7 @@ import marauroa.common.Log4J;
 import utilities.PlayerTestHelper;
 import utilities.RPClass.ItemTestHelper;
 
-public class BlackHelmetTest {
+public class EnchantedBlackHelmetTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Log4J.init();
@@ -49,11 +49,9 @@ public class BlackHelmetTest {
 	 */
 	@Test
 	public void testImperialKnight() {
-		final StendhalRPZone zone = new StendhalRPZone("zone");
+		final StendhalRPZone zone = new StendhalRPZone("zone", 100, 100);
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
-		final Item helmet = new BlackHelmet();
-		anna.equip("head", helmet);
 		anna.setHP(1000);
 		
 		Creature knight = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial knight"));
@@ -61,9 +59,12 @@ public class BlackHelmetTest {
 		zone.add(anna);
 		zone.add(knight);
 		knight.setTarget(anna);
-		knight.attack();
+		final Item helmet = new EnchantedBlackHelmet();
 		
-		assertEquals(anna.getHP(), 1000);
+		knight.attack();
+		anna.equip("head", helmet);
+
+		assertEquals(1000, anna.getHP());
 	}
 	
 	/**
@@ -74,7 +75,7 @@ public class BlackHelmetTest {
 		final StendhalRPZone zone = new StendhalRPZone("zone");
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
-		final Item helmet = new BlackHelmet();
+		final Item helmet = new EnchantedBlackHelmet();
 		anna.equip("head", helmet);
 		// anna.setHP(1000);
 		

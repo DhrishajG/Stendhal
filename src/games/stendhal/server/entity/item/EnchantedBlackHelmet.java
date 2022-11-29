@@ -23,8 +23,8 @@ import games.stendhal.server.entity.player.Player;
 /**
  * A helmet that prevents an attack from any Imperial army members
  */
-public class BlackHelmet extends Item {
-	public BlackHelmet(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
+public class EnchantedBlackHelmet extends Item {
+	public EnchantedBlackHelmet(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
 		super(name, clazz, subclass, attributes);
 	}
 
@@ -33,15 +33,15 @@ public class BlackHelmet extends Item {
 	 *
 	 * @param item copied item
 	 */
-	public BlackHelmet(final BlackHelmet item) {
+	public EnchantedBlackHelmet(final EnchantedBlackHelmet item) {
 		super(item);
 	}
 
 	/**
-	 * Create a Black Helmet.
+	 * Create a Black Helmet that is enchanted to act as a disguise.
 	 */
-	public BlackHelmet() {
-		super("black helmet", "helmet", "black-helmet", null);
+	public EnchantedBlackHelmet() {
+		super("enchanted black helmet", "helmet", "enchanted-black-helmet", null);
 		put("amount", 1);
 	}
 
