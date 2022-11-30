@@ -71,7 +71,7 @@ import utilities.PlayerTestHelper;
 					zone.add(seed);
 					seed.setPosition(x,y);
 					player.setPosition(x, y);
-					assertTrue(seed.onUsed(player));
+					assertTrue(seed.onUsed(player,g));
 					
 					final FlowerGrower fl = new FlowerGrower();
 					zone.add(fl);
