@@ -81,7 +81,6 @@ import utilities.PlayerTestHelper;
 					assertTrue(player.isEquipped("lilia"));
 				}
 			}
-			
 			assertEquals(g.getLandState(), "planted");
 		}
 	
