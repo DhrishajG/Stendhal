@@ -16,6 +16,7 @@ import java.util.Map;
 
 import games.stendhal.server.core.events.TurnNotifier;
 import games.stendhal.server.entity.RPEntity;
+import games.stendhal.server.entity.mapstuff.area.Garden;
 import games.stendhal.server.entity.mapstuff.spawner.FlowerGrower;
 
 /**
@@ -71,6 +72,12 @@ public class Seed extends StackableItem {
 		// the seed was 'contained' in a slot and so it cannot be planted
 		user.sendPrivateText("You have to put the " + this.getName() + " on the ground to plant it, silly!");
 		return false;
+	}
+	
+	@Override
+	public boolean onUsed(final RPEntity user, Garden g) {
+		g.setState("planted");
+		return onUsed(user);
 	}
 
 	@Override
