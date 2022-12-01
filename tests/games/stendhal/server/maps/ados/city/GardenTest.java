@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.server.core.engine.SingletonRepository;
@@ -14,13 +15,21 @@ import games.stendhal.server.entity.mapstuff.area.FertileGround;
 import games.stendhal.server.entity.mapstuff.area.Garden;
 import games.stendhal.server.entity.mapstuff.spawner.FlowerGrower;
 import games.stendhal.server.entity.player.Player;
+import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
+import utilities.RPClass.GrowingPassiveEntityRespawnPointTestHelper;
 
 	/**
 	 * Test planting seed on garden.
 	 * @author Kimi Goyal and Jungwoo Koo
 	 */
 	public class GardenTest{
+		@BeforeClass
+		public static void setUpBeforeClass() throws Exception {
+			MockStendlRPWorld.get();
+			GrowingPassiveEntityRespawnPointTestHelper.generateRPClasses();
+		}
+
 	
 		/**
 		 * Tests that default garden state is tilled.
