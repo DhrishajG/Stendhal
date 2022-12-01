@@ -12,17 +12,14 @@
  ***************************************************************************/
 package games.stendhal.server.entity.item;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
-import games.stendhal.server.entity.creature.Creature;
-import games.stendhal.server.entity.creature.RaidCreature;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import marauroa.common.Log4J;
@@ -45,47 +42,31 @@ public class EnchantedBlackHelmetTest {
 	}
 	
 	/**
-	 * Tests that a player wearing the helmet is not attacked by an imperial knight
+	 * Tests that a player is not invisible after taking the helmet off
 	 */
 	@Test
-	public void testImperialKnight() {
-		final StendhalRPZone zone = new StendhalRPZone("zone", 100, 100);
-		MockStendlRPWorld.get().addRPZone(zone);
-		final Player anna = PlayerTestHelper.createPlayer("anna");
-		anna.setHP(1000);
-		
-		Creature knight = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial knight"));
-		
-		zone.add(anna);
-		zone.add(knight);
-		knight.setTarget(anna);
-		final Item helmet = new EnchantedBlackHelmet();
-		
-		knight.attack();
-		anna.equip("head", helmet);
-
-		assertEquals(1000, anna.getHP());
-	}
-	
-	/**
-	 * Tests that a player wearing the helmet is not attacked by an imperial defender
-	 */
-	@Test
-	public void testImperialDefender() {
+	public void testOnUnequip() {
 		final StendhalRPZone zone = new StendhalRPZone("zone");
 		MockStendlRPWorld.get().addRPZone(zone);
 		final Player anna = PlayerTestHelper.createPlayer("anna");
 		final Item helmet = new EnchantedBlackHelmet();
 		anna.equip("head", helmet);
-		// anna.setHP(1000);
-		
-		// Creature defender = new RaidCreature((Creature) SingletonRepository.getEntityManager().getEntity("imperial defender"));
-		
+		helmet.onUnequipped();
 		zone.add(anna);
-		// zone.add(defender);
-		// defender.setTarget(anna);
-		// defender.attack();
-		
+		assertFalse(anna.isInvisibleToCreatures());
+	}
+	
+	/**
+	 * Tests that a player is invisible after putting the helmet on
+	 */
+	@Test
+	public void testOnEquip() {
+		final StendhalRPZone zone = new StendhalRPZone("zone");
+		MockStendlRPWorld.get().addRPZone(zone);
+		final Player anna = PlayerTestHelper.createPlayer("anna");
+		final Item helmet = new EnchantedBlackHelmet();
+		anna.equip("head", helmet);		
+		zone.add(anna);
 		assertTrue(anna.isInvisibleToCreatures());
 	}
 }

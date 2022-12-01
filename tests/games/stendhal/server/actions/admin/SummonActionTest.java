@@ -154,7 +154,7 @@ public class SummonActionTest {
 	}
 	
 	@Test
-	public final void testSummonBlackHelmet() {
+	public final void testSummonEnchantedBlackHelmet() {
 		final Player pl = PlayerTestHelper.createPlayer("hugo");
 
 		MockStendhalRPRuleProcessor.get().addPlayer(pl);
@@ -164,13 +164,13 @@ public class SummonActionTest {
 		pl.put("adminlevel", 5000);
 		final RPAction action = new RPAction();
 		action.put("type", "summon");
-		action.put("creature", "black helmet");
+		action.put("creature", "enchanted black helmet");
 		action.put("x", 0);
 		action.put("y", 0);
 		CommandCenter.execute(pl, action);
 		assertEquals(1, pl.getID().getObjectID());
 		final Item item = (Item) zone.getEntityAt(0, 0);
-		assertEquals("black_helmet", item.get("subclass"));
+		assertEquals("enchanted_black_helmet", item.get("subclass"));
 	}
 
 	/**

@@ -41,14 +41,14 @@ public class EnchantedBlackHelmet extends Item {
 	 * Create a Black Helmet that is enchanted to act as a disguise.
 	 */
 	public EnchantedBlackHelmet() {
-		super("enchanted black helmet", "helmet", "enchanted-black-helmet", null);
+		super("enchanted black helmet", "helmet", "enchanted_black_helmet", null);
 		put("amount", 1);
 	}
 
 	/**
 	 * If the player puts the helmet in the head slot, then they become invisible
 	 * this method returns true if the player was not already invisible, and false otherwise
-	 * This as per the onEqipped definition to return whether the method 'indicate whether it made any change'
+	 * This as per the onEqipped definition to 'indicate whether it made any change' in the return value
 	 */
 	@Override
 	public boolean onEquipped(final RPEntity entity, final String slot) {
@@ -61,5 +61,23 @@ public class EnchantedBlackHelmet extends Item {
 			new GameEvent(((Player)entity).getName(), INVISIBLE, "on").raise();
 		}
 		return !already_invisible;
+	}
+	
+	/**
+	 * If the player takes the helmet out of the head slot, then invisibility is turned off again
+	 * This method returns true if invisibility was already turned off for the player, and false otherwise
+	 * This as per the onUnEqipped definition to 'indicate whether it made any change' in the return value
+	 */
+	@Override
+	public boolean onUnequipped() {
+		boolean already_invisible = false;
+		if (this.getContainerOwner() instanceof Player) {	
+			if (((Player)this.getContainerOwner()).isInvisibleToCreatures()) {
+				already_invisible = true;
+			}
+			((Player) this.getContainerOwner()).setInvisible(false);
+			new GameEvent(((Player)this.getContainerOwner()).getName(), INVISIBLE, "off").raise();
+		}
+		return already_invisible;
 	}
 }
