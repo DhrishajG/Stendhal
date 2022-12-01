@@ -77,6 +77,25 @@
       <slot name="rhand"/>
     </equipable>
   </item>
+  
+  <item name="pipe">
+    <type class="tool" subclass="pipe" tileid="-1"/>
+    <description>Play the pipe, to become immune to attack.</description>
+    <implementation class-name="games.stendhal.server.entity.item.Pipe"/>
+    <attributes>
+      <def value="100"/>
+      <rate value="8"/>
+      <menu value="Use|Use"/>
+    </attributes>
+    <weight value="0.2"/>
+    <value value="463051"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="lhand"/>
+      <slot name="rhand"/>
+      <slot name="bag"/>
+    </equipable>
+  </item>
 
   <item name="gold pan">
     <type class="tool" subclass="gold_pan" tileid="-1"/>

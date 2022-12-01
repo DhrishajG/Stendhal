@@ -66,7 +66,22 @@ public class CreatureTest {
 		assertNull(sevenbyseven.getNearestEnemy(4));
 	}
 
-
+	@Test
+	public void testCharmedState() throws Exception{
+		final StendhalRPZone zone = new StendhalRPZone("testzone");
+		
+		Player target = PlayerTestHelper.createPlayer("bob");
+		target.setCharming(true);
+		MockCreature attacker = new MockCreature();
+		
+		zone.add(attacker);
+		zone.add(target);
+		attacker.setTarget(target);
+		
+		assertFalse(attacker.canHit(target));
+		assertTrue(attacker.isCharmed());
+	}
+	
 	private static List<RPEntity> enemies  = new LinkedList<RPEntity>();
 	private static class MockCreature extends Creature {
 
@@ -75,6 +90,7 @@ public class CreatureTest {
 
 			return enemies;
 		}
+		
 	}
 
 	/**
