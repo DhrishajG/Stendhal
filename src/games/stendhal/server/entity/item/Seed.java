@@ -77,8 +77,10 @@ public class Seed extends StackableItem {
 	// Overloaded onUsed function to change garden state
 	@Override
 	public boolean onUsed(final RPEntity user, Garden g) {
-		return false;
+		g.setState("planted");
+		return onUsed(user);
 	}
+
 
 	@Override
 	public String describe() {
