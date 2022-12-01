@@ -389,6 +389,27 @@ Possibly add to weekly item quest. -->
       <slot name="head"/>
     </equipable>
   </item>
+  
+  <item name="enchanted black helmet">
+    <type class="helmet" subclass="enchanted_black_helmet" tileid="-1"/>
+    <description>You see an enchanted black helmet. Put it on to become invisible to enemies in Kalavan Castle</description>
+    <implementation class-name="games.stendhal.server.entity.item.EnchantedBlackHelmet"/>
+    <attributes>
+      <def value="26"/>
+      <min_level value="150"/>
+    </attributes>
+    <weight value="15.0"/>
+    <value value="123032"/>
+    <susceptibility type="light" value="1.3"/>
+    <susceptibility type="dark" value="0.85"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+      <slot name="head"/>
+    </equipable>
+  </item>
 
   <item name="mithril helmet">
     <type class="helmet" subclass="mithril_helmet" tileid="-1"/>
