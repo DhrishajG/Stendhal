@@ -11,6 +11,11 @@ public class Pipe extends Item {
             final String subclass, final Map<String, String> attributes) {
         super(name, clazz, subclass, attributes);
     }
+	public Pipe(final Pipe item) {
+		super(item);
+	}
+	
+	
 	
 	// determines whether pipe can be used and sets the state
 	@Override
@@ -24,7 +29,7 @@ public class Pipe extends Item {
 		    return false;
 		}
 		else {
-		    user.sendPrivateText("Your holding pipe in hand.");
+		    user.sendPrivateText("You begin to play the pipe.");
 		    
 		    Player player = (Player) user;
 		    player.setCharming(true);
@@ -40,9 +45,10 @@ public class Pipe extends Item {
 		if (unequipper instanceof Player) {
 			Player player = (Player) unequipper;
 			if (player.isCharming()) {
-				player.setCharming(false);
 				unequipper.sendPrivateText("You stopped playing the pipe");
 			}
+			
+			player.setCharming(false);
 		}
 		
 		return true;
