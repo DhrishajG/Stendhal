@@ -32,8 +32,9 @@ import games.stendhal.server.entity.Entity;
 import games.stendhal.server.entity.PassiveEntity;
 import games.stendhal.server.entity.RPEntity;
 import games.stendhal.server.entity.item.Corpse;
-import games.stendhal.server.entity.mapstuff.block.Block;
-import games.stendhal.server.entity.mapstuff.chest.Chest;
+//import games.stendhal.server.entity.item.Corpse;
+//import games.stendhal.server.entity.mapstuff.block.Block;
+//import games.stendhal.server.entity.mapstuff.chest.Chest;
 //import games.stendhal.server.entity.PassiveEntity;
 //import games.stendhal.server.entity.RPEntity;
 //import games.stendhal.server.entity.item.Corpse;
@@ -63,7 +64,7 @@ public class HandCartTest{
 		}
 
 		if (!RPClass.hasRPClass("hand cart")) {
-			Cart.generateRPClass();
+			HandCart.generateRPClass();
 		}
 	}
 
@@ -76,7 +77,7 @@ public class HandCartTest{
 	 */
 	@Test(expected = SlotIsFullException.class)
 	public final void testSize() {
-		final HandCart ch = new HandCart();
+		final HandCart ch = new HandCart(true);
 		assertEquals(0, ch.size());
 		for (int i = 0; i < 30; i++) {
 			ch.add(new PassiveEntity() {
@@ -92,7 +93,7 @@ public class HandCartTest{
 	 */
 	@Test
 	public final void testOpen() {
-		final HandCart ch = new HandCart();
+		final HandCart ch = new HandCart(true);
 		assertFalse(ch.isOpen());
 		ch.open();
 
@@ -106,7 +107,7 @@ public class HandCartTest{
 	 */
 	@Test
 	public final void testOnUsed() {
-		final HandCart ch = new HandCart();
+		final HandCart ch = new HandCart(true);
 		assertFalse(ch.isOpen());
 		ch.onUsed(new RPEntity() {
 
