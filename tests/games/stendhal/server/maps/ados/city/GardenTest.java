@@ -23,21 +23,26 @@ import utilities.PlayerTestHelper;
 	public class GardenTest{
 	
 		/**
-		 * Tests for configureZone.
-//		 */
-
+		 * Tests that default garden state is tilled.
+		 */
 		@Test
 		public void testDefaultGardenState() {
 			Garden g = new Garden();
 			assertEquals(g.getLandState(), "tilled");
 		}
 		
+		/**
+		 * Tests that default garden owner is Ross.
+		 */
 		@Test
 		public void testDefaultGardenOwner() {
 			Garden g = new Garden();
 			assertEquals(g.getOwner(), "Ross");
 		}
 		
+		/**
+		 * Tests that garden can be planted.
+		 */
 		@Test
 		public void testPlantedGardenState() {
 			
@@ -49,7 +54,7 @@ import utilities.PlayerTestHelper;
 			zone.add(player);
 			
 			
-		
+			// configure the zone as garden.
 			Garden g = new Garden();
 			final Map<String, String> attribs = new HashMap<String, String>();
 			attribs.put("x", "1");
@@ -61,11 +66,14 @@ import utilities.PlayerTestHelper;
 			
 			assertFalse(0 + ":" + 0,
 					zone.getEntityAt(0, 0) instanceof FertileGround);
+			
+			// check garden is fertile ground
 			for (int x = 1; x < 4; x++) {
 				for (int y = 1; y < 4; y++) {
 					assertTrue(x + ":" + y,
 							zone.getEntityAt(x, y) instanceof FertileGround);
 					
+					// check that seed can grow on garden
 					final Seed seed = (Seed) SingletonRepository.getEntityManager().getItem("seed");
 					assertNotNull(seed);
 					zone.add(seed);
@@ -81,6 +89,8 @@ import utilities.PlayerTestHelper;
 					assertTrue(player.isEquipped("lilia"));
 				}
 			}
+			
+			// check that land state is planted
 			assertEquals(g.getLandState(), "planted");
 		}
 	

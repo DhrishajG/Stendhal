@@ -815,7 +815,8 @@ public abstract class Entity extends RPObject implements Killer {
 	public String getName() {
 		return getRPClass().getName();
 	}
-
+	
+	// Later overridden in seed.java
 	public boolean onUsed(RPEntity user, Garden g) {
 		// TODO Auto-generated method stub
 		return false;
