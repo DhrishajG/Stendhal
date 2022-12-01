@@ -392,7 +392,7 @@ Possibly add to weekly item quest. -->
   
   <item name="enchanted black helmet">
     <type class="helmet" subclass="enchanted_black_helmet" tileid="-1"/>
-    <description>You see an enchanted black helmet.</description>
+    <description>You see an enchanted black helmet. Put it on to become invisible to enemies in Kalavan Castle</description>
     <implementation class-name="games.stendhal.server.entity.item.EnchantedBlackHelmet"/>
     <attributes>
       <def value="26"/>
