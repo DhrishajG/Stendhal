@@ -5,7 +5,7 @@
 
   <!--
     ** Load zones. Written from left to right and from top to bottom.
-    ** Please respect it!
+    ** Please respect it! 
   -->
 
   <!--  Ground level -->
@@ -4091,7 +4091,7 @@ My fee:
       <parameter name="width">1</parameter>
       <parameter name="height">1</parameter>
     </configurator>
-
+    
     <!-- Portals -->
     <portal x="21" y="17" ref="in">
       <destination zone="0_ados_city" ref="house_63"/>
@@ -4726,6 +4726,14 @@ Southeast: Docks
       <parameter name="color_method">time</parameter>
       <parameter name="weather">varying</parameter>
     </attributes>
+    
+    <!-- add garden next to ados house -->
+    <configurator class-name="games.stendhal.server.entity.mapstuff.area.Garden">
+      <parameter name="x">28</parameter>
+      <parameter name="y">109</parameter>
+      <parameter name="width">2</parameter>
+      <parameter name="height">2</parameter>
+    </configurator>
 
     <!--  NPCs -->
     <configurator class-name="games.stendhal.server.maps.ados.city.ForeignWomanNPC"/>

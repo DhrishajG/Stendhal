@@ -31,6 +31,7 @@ import games.stendhal.common.constants.Events;
 import games.stendhal.common.grammar.Grammar;
 import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.core.pathfinder.Node;
+import games.stendhal.server.entity.mapstuff.area.Garden;
 import games.stendhal.server.entity.slot.EntitySlot;
 import games.stendhal.server.entity.slot.SlotNameInList;
 import games.stendhal.server.entity.slot.Slots;
@@ -813,5 +814,11 @@ public abstract class Entity extends RPObject implements Killer {
 	@Override
 	public String getName() {
 		return getRPClass().getName();
+	}
+	
+	// Later overridden in seed.java
+	public boolean onUsed(RPEntity user, Garden g) {
+		// method stub
+		return false;
 	}
 }
