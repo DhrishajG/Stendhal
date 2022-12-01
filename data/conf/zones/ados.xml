@@ -5,7 +5,7 @@
 
   <!--
     ** Load zones. Written from left to right and from top to bottom.
-    ** Please respect it!
+    ** Please respect it! 
   -->
 
   <!--  Ground level -->
@@ -4727,6 +4727,7 @@ Southeast: Docks
       <parameter name="weather">varying</parameter>
     </attributes>
     
+    <!-- add garden next to ados house -->
     <configurator class-name="games.stendhal.server.entity.mapstuff.area.Garden">
       <parameter name="x">28</parameter>
       <parameter name="y">109</parameter>
