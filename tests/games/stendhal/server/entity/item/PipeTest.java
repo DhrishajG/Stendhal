@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,6 +21,20 @@ public class PipeTest{
 	public static void setUpBeforeClass() throws Exception {
 		
 		MockStendlRPWorld.get();
+	}
+	
+	private Player user;
+	private Pipe newPipe;
+	
+	@Before
+	public void setUpTests() {
+		user = PlayerTestHelper.createPlayer("bob");
+		
+		String name = "pipe";
+		String clazz = "";
+		String subclass = "";
+		Map<String, String> attributes = new HashMap<String, String>();
+		newPipe = new Pipe(name, clazz, subclass, attributes);
 	}
 	
 	//tests that pipe is created and throws error if not
@@ -37,13 +52,6 @@ public class PipeTest{
 	//tests that pipe is held
 	@Test
 	public void testPipeHeld() throws Exception {
-		final Player user = PlayerTestHelper.createPlayer("bob");
-		
-		String name = "pipe";
-		String clazz = "";
-		String subclass = "";
-		Map<String, String> attributes = new HashMap<String, String>();
-		Pipe newPipe = new Pipe(name, clazz, subclass, attributes);
 		
 		//checks that if pipe is not held in either hand returns this message
 		user.equip("bag", newPipe);
@@ -65,13 +73,6 @@ public class PipeTest{
 	//tests the player state when holding pipe
 	@Test
 	public void testPipeState() throws Exception {
-		final Player user = PlayerTestHelper.createPlayer("bob");
-			
-		String name = "pipe";
-		String clazz = "";
-		String subclass = "";
-		Map<String, String> attributes = new HashMap<String, String>();
-		Pipe newPipe = new Pipe(name, clazz, subclass, attributes);
 			
 		//checks that if pipe is not held state is false
 		user.equip("bag", newPipe);
