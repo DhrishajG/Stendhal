@@ -53,7 +53,6 @@ import utilities.PlayerTestHelper;
 			SingletonRepository.getRPWorld().addRPZone(zone);
 			zone.add(player);
 			
-			
 			// configure the zone as garden.
 			Garden g = new Garden();
 			final Map<String, String> attribs = new HashMap<String, String>();
