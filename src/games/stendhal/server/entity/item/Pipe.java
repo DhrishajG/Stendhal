@@ -29,7 +29,7 @@ public class Pipe extends Item {
 		    return false;
 		}
 		else {
-		    user.sendPrivateText("You begin to play the pipe.");
+		    user.sendPrivateText("Your holding pipe in hand.");
 		    
 		    Player player = (Player) user;
 		    player.setCharming(true);
