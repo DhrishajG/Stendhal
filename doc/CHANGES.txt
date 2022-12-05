@@ -3,6 +3,18 @@ Changelog
 ---------
 
 
+1.41uom
+*world*
+- Can grow plants in Ross' house in Ados City
+- Admin level players can summon hand cart to store items for their quest
+- Admin level players can summon enchanted black helmet to protect them against the imperial raid
+- Admin level players can summon pipe-of-charming to protect them against hostile creatures
+
+*graphics*
+- Garden in Ross' house
+- 'pipe-of-charming' to protect player against hostile creatures
+- Equipping black helmet makes player invisible
+
 1.40uom
 
 *world*

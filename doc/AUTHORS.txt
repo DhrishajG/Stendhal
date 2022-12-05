@@ -203,17 +203,25 @@ Notable contributors:
   · NPCs
 - Dhrishaj Garg
   · Coder (made Florence Bouillabaisse a visible NPC in Ados Market)
+  · Coder (hand cart feature for admin level users)
 - Anna Spence
   · Coder (fixed 'bows for ouchit' by making Karl give player horse hair on saying 'horse hairs')
+  · Coder (disguises against imperial raid)
 - Shemaine Vij
   · Coder (made Lieutenant Drilenun accept rod of the gm as a respectable weapon)
+  · Coder (disguises against imperial raid)
 - Kimi Goyal
   · Coder (made Haunchy accept charcoal in 'Coal for Haunchy' quest)
+  · Coder (grow in garden feature added to Ross' house in Ados city)
 - Aisha Wahid
   · Coder (added an error message to user if they try to shift zones when sheep is too far away)
+  · Coder (pipes of charming for hostile creatures)
 - Jonathan Hackett
   · Coder (made Coralia react to #everything)
+  · Coder (pipes of charming for hostile creatures)
 - Jungwoo Koo
   · Coder (allowed players to chose masks from Fidorea)
+  · Coder (grow in garden feature added to Ross' house in Ados city)
 - Oliver Quinn
   · Coder (prevented players from cheating on Zekiel's practical test)
+  · Coder (hand cart feature for admin level users)
